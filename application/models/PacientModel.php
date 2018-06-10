@@ -3,31 +3,56 @@
 class PacientModel extends CI_Model {
     public function __construct() {
         $this->load->database();
+        $this->load->helper('url');
     }
     
-    public function getData(){
+    function search($keyword)
+    {        
+        $this->db->or_like(array('first_name'=>$keyword,'last_name'=>$keyword,'cnp'=>$keyword ));
+        $query  =   $this->db->get('patient');
+        return $query->result();
+    }
+    
+    function expose_c(){
+        $query = $this->db->get('county');
+        return $query->result();
+    }
+    
+    function expose_l(){
+        $query = $this->db->get('locality');
+       return $query->result();
+    }
+    
+    function expose_m(){
+        $query = $this->db->get('patient');
+        return $query->result();
+    }
+
+
+    public function getData() {
+        $this->db->where('first_name', $fn);
+        $this->db->where('last_name', $ln);
+        $this->db->where('cnp', $cn);
         $query = $this->db->get('patient');
         return $query->result();
     }
   
-    
-    public function insert_into_db(){
-        $f1 = $_POST['number'];
-        $f2 = $_POST['fname'];
-        $f3 = $_POST['lname'];
-        $f4 = $_POST['date'];
-        $f5 = $_POST['county'];
-        $f6 = $_POST['locality'];
-        $f7 = $_POST['adress'];
-        $f8 = $_POST['occupation'];
-        $f9 = $_POST['job'];
-        $f10 = $_POST['phone'];
-        $f11 = $_POST['email'];
-        $f12 = $_POST['ID'];
-        $f13 = $_POST['marital'];       
-         
+    function form_insert($new_patient){
+
+    $this->db->insert('patient', $new_patient);
+}
+   
+
+        public function insert_into_db(){
+      
+       $new_patient = array ("", $_POST['fname'],$_POST['lname'], $_POST['date'], $_POST['county'], 
+           $_POST['locality'], $_POST['adress'], $_POST['occupation'], $_POST['job'], $_POST['phone'],
+            $_POST['email'], $_POST['ID'],$_POST['marital']       
+    ) ;
+       $this->db->insert('patient', $new_patient);    
     }
-       
+   
+    
     
 }
 

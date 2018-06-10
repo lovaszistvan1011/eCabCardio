@@ -117,7 +117,7 @@ and open the template in the editor.
            
             <label> <?php echo count($_POST)?></label>
             
-             
+             <a href="http://localhost/eCabCardio/index.php/PacientController/edit"><button>Pacient nou</button></a> 
               
         </div>
     </center>

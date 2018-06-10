@@ -7,12 +7,12 @@
         
     </head>
     <body><center>
-        <h2> Pacienti:</h2>
+        <h2> Pacient</h2>
         <div>
             
                     
             
-                            <form method="post">
+            <form method="post" name="newpatient">
 
             <table border="1">
           <!--      <thead>                   
@@ -38,13 +38,11 @@
                     <tr>
                         <td>Judet</td>
                         <td><select  name="listp"><option value="contyn"><?php
-                     //   $query = $this->db->query("select * from patient");
-               //foreach($query->result() as $rec){$county=$rec->id_county;}          
-               $query1=$this->db->query("SELECT * from county ");
-             foreach($query1->result() as $row){
-             $select = $row->name;
-             $selectid =$row->id_county;
-               echo "<option>".$select."</option>";
+            // $query1= $this->db->get('county');        
+             foreach ($rows1 as $row){
+            // echo $row->'name';
+             //$selectid =$line->id_county;
+               echo "<option>".$row->name."</option>";
              }
              ?>
                    
@@ -54,12 +52,9 @@
                     </tr>
                     <tr>
                         <td>Localitate <td><select  name="listl"><option value="localityn"><?php
-              
-              // $query2=$this->db->query("SELECT name from locality where locality.id_county = '$selectid' ");
-               $query2=$this->db->query("SELECT name from locality");
-             foreach($query2->result() as $row){
-             
-               echo "<option>".$row->name."</option>";
+             // $query2=$this->db->get('locality');
+             foreach($rows2 as $row){
+              echo "<option>".$row->name."</option>";
              }
                         ?>
                                 </option></select>
@@ -89,15 +84,20 @@
                         <td><input type="text" name="ID" value="" size="13" /></td>
                     </tr>
                     <tr>
-                        <td>Starea Civila</td>
-                      <td><input type="text" name="marital" value="" size="50" /></td>
-                   
+                       <td>Starea Civila</td>
+                        <td><select name="list1"><option value="marital"><?php
+                     foreach($rows3 as $row){
+              echo "<option>".$row->marital_status."</option>";
+             }
+             
+                        ?></option></select>
+                      </td> 
                 </tbody>
 
             </table>
 
           
-            <button type="submit">Inregistrare</button>
+            <button type="submit" name="save" >Salveaza</button>
             </form>
             <a href="http://localhost/eCabCardio/index.php/PacientController/"><button>Inapoi</button></a>
             

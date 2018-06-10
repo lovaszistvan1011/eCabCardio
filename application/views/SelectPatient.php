@@ -12,9 +12,38 @@ and open the template in the editor.
     </head>
     <body> <center>
         <div>
-            <p>Selectare pacient dupa: </p>
-             
-            <form action="#" name = "form1" method="post">
+            <div>
+                
+            </div>
+       
+            <br>    
+            <p>Rezultatul cautarii:</p>             
+            <table border='2' width='40%' style="border-collapse: collapse">
+            <tr>
+                
+                <th>Prenume</th>
+                <th>Nume</th>
+                <th>CNP</th>
+            </tr>
+            <?php
+            foreach ($results as $row) {
+               $fn =  $row->first_name ;
+               $ln =  $row->last_name ;
+               $cn =  $row->cnp ;
+                
+                
+                echo "<td>" .$row->first_name . "</td>";
+                echo "<td>" .$row->last_name . "</td>";
+                echo "<td>" .$row->cnp . "</td>";
+                ?>
+            <td><a href="http://localhost/eCabCardio/index.php/PacientController/details"><button>Info</button></a></td>
+            <?php //$this->load->view('PacientView', array("$results"=>$results));
+                echo "</tr>";
+            }
+            ?>
+            </table>       
+            
+        <!--    <form action="#" name = "form1" method="post">
                <label>Prenume</label>
                 <select  name="list1"><option value=""><?php
                                    $query=$this->db->query('select * from patient');
@@ -23,7 +52,7 @@ and open the template in the editor.
                                         echo "<option>".$sfn."</option>";
                                     }                                    
                                   ?>
-                </option>
+                
                 
                 </select><input type="submit" name="submit" formaction="http://localhost/eCabCardio/index.php/PacientController/listP" value="Selectare!"/>
                 
@@ -77,10 +106,10 @@ and open the template in the editor.
            
              </form>
                  
-                
+             -->   
             <br>
             <br>
-            <br>
+            <br> 
            <!--<a href ="edit?patId=1" <?php ?> ><button>Pacient nou</button></a> -->
             <a href="http://localhost/eCabCardio/index.php/PacientController/edit"><button>Pacient nou</button></a>
         </div>
