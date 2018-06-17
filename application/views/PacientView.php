@@ -9,6 +9,7 @@
     <body><center>
         <h2> Pacient:</h2>
         <div>
+            
             <table border="1">
                 <thead>
                     <tr>
@@ -39,11 +40,23 @@
                     </tr>
                     <tr>
                         <td>Judet</td>
-                        <td></td>
+                        <td><?php
+                 foreach($records as $rec){$county= $rec->id_county;             
+                     
+              $query1=$this->db->query("SELECT county.name from county INNER JOIN patient on county.id_county = '$county' ");
+              echo $query1->row()->name;
+                 }
+                        ?></td>
                     </tr>
                     <tr>
                         <td>Localitate</td>
-                        <td></td>
+                        <td><?php
+                 foreach($records as $rec){$locality= $rec->id_locality;             
+                     
+               $query1=$this->db->query("SELECT locality.name from locality INNER JOIN patient on locality.id_locality= '$locality' ");
+              echo $query1->row()->name;
+                 }
+                        ?></td>
                     </tr>
                     <tr>
                         <td>Adresa</td>

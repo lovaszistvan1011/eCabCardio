@@ -12,6 +12,7 @@ and open the template in the editor.
     </head>
     <body> <center>
         <div>
+            <form method="post" name="newpatient" action="<?php echo site_url('PacientController/savedata');?>">
              <?php $query=$this->db->query("select * from patient where first_name = '{$_POST['list1']}' or last_name ='{$_POST['list2']}' or cnp = '{$_POST['list3']}' "); ?>  
                 
             <br>
@@ -115,7 +116,7 @@ and open the template in the editor.
             </table>
             <br>
            
-            <label> <?php echo count($_POST)?></label>
+            <label> <?php// echo count($_POST)?></label>
             
              <a href="http://localhost/eCabCardio/index.php/PacientController/edit"><button>Pacient nou</button></a> 
               

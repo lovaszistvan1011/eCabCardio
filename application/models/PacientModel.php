@@ -6,8 +6,28 @@ class PacientModel extends CI_Model {
         $this->load->helper('url');
     }
     
+    public function record_count() {
+ 
+       return $this->db->count_all("patient"); 
+   }
+   
+    public function fetch_departments($limit, $start, $keyword) {
+ 
+       $this->db->limit($limit, $start);
+       $this->db->or_like(array('first_name'=>$keyword,'last_name'=>$keyword,'cnp'=>$keyword ));
+       $query = $this->db->get("patient");
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+    }
+   
     function search($keyword)
-    {        
+    {    
+       // $this->db->limit($limit, $start);
         $this->db->or_like(array('first_name'=>$keyword,'last_name'=>$keyword,'cnp'=>$keyword ));
         $query  =   $this->db->get('patient');
         return $query->result();
@@ -29,28 +49,32 @@ class PacientModel extends CI_Model {
     }
 
 
-    public function getData() {
-        $this->db->where('first_name', $fn);
-        $this->db->where('last_name', $ln);
-        $this->db->where('cnp', $cn);
-        $query = $this->db->get('patient');
+    public function getData($id) {
+       $this->db->where('id_patient', $id);
+       $query = $this->db->get('patient');
         return $query->result();
     }
   
-    function form_insert($new_patient){
-
-    $this->db->insert('patient', $new_patient);
-}
-   
-
-        public function insert_into_db(){
-      
-       $new_patient = array ("", $_POST['fname'],$_POST['lname'], $_POST['date'], $_POST['county'], 
-           $_POST['locality'], $_POST['adress'], $_POST['occupation'], $_POST['job'], $_POST['phone'],
-            $_POST['email'], $_POST['ID'],$_POST['marital']       
-    ) ;
-       $this->db->insert('patient', $new_patient);    
+   public function form_insert($array){
+    {
+    $this->db->insert('patient', $array);
+    $idOfInsertedData = $this->db->insert_id();
     }
+     return $idOfInsertedData ;
+}
+    public function get_idc($c_name){
+   
+        $this->db->where('name',$c_name);
+         $query = $this->db->get('county');
+        return $query->id_county;
+}
+
+public function get_idl($l_name){
+   
+        $this->db->where('name',$l_name);
+         $query = $this->db->get('locality');
+        return $query->id_locality;
+}
    
     
     
