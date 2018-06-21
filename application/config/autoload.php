@@ -58,11 +58,11 @@ $autoload['packages'] = array('database');
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-<<<<<<< HEAD
+
 $autoload['libraries'] = array("template");
-=======
+
 $autoload['libraries'] = array('database');
->>>>>>> origin/master
+
 
 /*
 | -------------------------------------------------------------------
