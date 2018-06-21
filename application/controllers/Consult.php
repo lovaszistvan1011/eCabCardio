@@ -15,6 +15,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Consult extends CI_Controller {
 
+  public function __construct() {
+    parent::__construct();
+    $this->load->helper('url');
+    $this->load->library('session');
+  }
   public function index() {
     $this->load->view('consult');
   }
@@ -24,8 +29,17 @@ class Consult extends CI_Controller {
         'title' => 'Title goes here',
     );
 
-//    $this->load->library('template');
+    $this->load->library('template');
     $this->template->load('home', 'content', $data);
+  }
+  
+  public function plain() {
+    $data = array(
+        'title' => 'Pagin[ simpl[, cu meniu',
+    );
+
+    $this->load->library('template');
+    $this->template->load('Plain', 'content', $data);
   }
 
 }

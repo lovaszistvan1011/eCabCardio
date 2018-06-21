@@ -2,7 +2,7 @@
 <html>
  
     <head>
-        <title><?php echo $title; ?></title>
+        <title>DEMOO    <?php echo $title; ?></title>
     </head>
  
     <body>

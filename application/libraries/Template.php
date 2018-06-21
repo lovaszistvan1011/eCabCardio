@@ -13,22 +13,18 @@ class Template {
 
   function load($tpl_view, $body_view = null, $data = null) {
     if (!is_null($body_view)) {
-      if (file_exists(APPPATH . 'views/' . $tpl_view . '/' . $body_view)) {
-        $body_view_path = $tpl_view . '/' . $body_view;
-      } else if (file_exists(APPPATH . 'views/' . $tpl_view . '/' . $body_view . '.php')) {
-        $body_view_path = $tpl_view . '/' . $body_view . '.php';
-      } else if (file_exists(APPPATH . 'views/' . $body_view)) {
+      if (file_exists(APPPATH . 'views/' . $body_view)) {
         $body_view_path = $body_view;
       } else if (file_exists(APPPATH . 'views/' . $body_view . '.php')) {
         $body_view_path = $body_view . '.php';
+      } elseif (file_exists(APPPATH . 'views/' . $tpl_view . '/' . $body_view)) {
+        $body_view_path = $tpl_view . '/' . $body_view;
+      } else if (file_exists(APPPATH . 'views/' . $tpl_view . '/' . $body_view . '.php')) {
+        $body_view_path = $tpl_view . '/' . $body_view . '.php';
       } else {
         show_error('Unable to load the requested file: ' . $tpl_name . '/' . $view_name . '.php');
       }
-
-//      $body = $this->ci->load->view("templates/header");
       $body = $this->ci->load->view($body_view_path, $data, TRUE);
-//      $body .= $this->ci->load->view("footer");
-
       if (is_null($data)) {
         $data = array('body' => $body);
       } else if (is_array($data)) {
@@ -37,10 +33,7 @@ class Template {
         $data->body = $body;
       }
     }
-
-    $this->ci->load->view("templates/header");
     $this->ci->load->view('templates/' . $tpl_view, $data);
-    $this->ci->load->view("templates/footer");
   }
 
 }
