@@ -6,13 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.css">
     </head>
-    <body><center>
+    <body>
+    <?php $this->load->view('nav')?>
+    <center>
         <h2> Pacient:</h2>
         <div>
-              <table border="1">
-                <thead class="blue-grey lighten-4">
+            
+            <table border="1">
+                <thead>
                     <tr>
-                        <th >Numar pacient</th>
+                        <th>Numar pacient</th>
                         <th> <?php
              foreach($records as $rec){echo $rec->id_patient;}
                         ?></th>
@@ -40,13 +43,14 @@
                     <tr>
                         <td>Judet</td>
                         <td><?php
-                echo $rows1->name;
+                        echo $rows1->name;
+                                              
                         ?></td> 
                     </tr>
                     <tr>
                         <td>Localitate</td>
                         <td><?php
-                echo $rows2->name;
+                        echo $rows2->name;
                         ?></td>
                     </tr>
                     <tr>
@@ -100,7 +104,8 @@
         <br>
         <br>
      <a href="http://localhost/eCabCardio/index.php/PacientController/"><button class="btn btn-dark">Pagina principala</button></a>
-     <a href="<?php echo base_url(); ?>PacientController/edit/<?php echo $rec->id_patient ?>"><button class="btn btn-dark" >Modific date pacient</button></a>
+     <a href="<?php echo base_url(); ?>PacientController/edit/<?php echo $rec->id_patient ?>"><button class="btn btn-dark">Modific date pacient</button></a>
+    
     </center></body>
     <footer> Posted by: Lovasz</footer>
 </html>

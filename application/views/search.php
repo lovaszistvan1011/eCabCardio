@@ -1,27 +1,31 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<!doctype html>
+<html lang="en">
+
     <head>
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/style.css">
+        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.css">
     </head>
-    <body> <center>
+    <body> 
+       <?php $this->load->view('nav')?>
+
+    <center>
+        
         <div>
-            <p>Cautare dupa pacient (nume, prenume sau cnp):</p>     
+            <br>
+            <br>
+            <h4 class="">Cautare dupa pacient (nume, prenume sau cnp):</h4>     
            <form action="http://localhost/eCabCardio/index.php/PacientController/search_keyword" method="post">
                 <p><input type="text" name="keyword" /></p>
-                <p><input type="submit" value="Submit"/></p>
+                <button type="submit" class="btn btn-primary" value="Cautare">Cautare</button>
             </form>
 
-
+           
 
         </div>
     </center>
     </body>
+    <footer> Posted by: Lovasz<br>
+        <?php echo date("Y.m.d") . "<br>";?></footer>
 </html>
