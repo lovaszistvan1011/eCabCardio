@@ -13,33 +13,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @author Stefan Halus
  */
-class Consult extends CI_Controller {
+class ConsultController extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
     $this->load->helper('url');
     $this->load->library('session');
+    $this->load->library('template');
   }
+
   public function index() {
-    $this->load->view('consult');
-  }
-
-  public function home() {
-    $data = array(
-        'title' => 'Title goes here',
-    );
-
-    $this->load->library('template');
-    $this->template->load('home', 'content', $data);
-  }
-  
-  public function plain() {
-    $data = array(
-        'title' => 'Pagin[ simpl[, cu meniu',
-    );
-
-    $this->load->library('template');
-    $this->template->load('Plain', 'content', $data);
+    $_SESSION['id_patient'] = 3;
+    $_SESSION['id_employee'] = 2;
+    $data = [
+        'title' => 'Consult',
+        'session' => $this->session->userdata()
+    ];
+    $this->template->load('Plain', 'consult', $data);
   }
 
 }

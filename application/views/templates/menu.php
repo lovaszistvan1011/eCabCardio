@@ -6,8 +6,10 @@
           <div class="col-md-10 col-sm-12">
             <div id="navigation" class="navigation">
               <ul>
-                <li class="active"><a href="/ecabcardio" title="Home" class="animsition-link">Home</a></li>
-                <li><a href="service-list.html" title="Service" class="animsition-link">Service List</a>
+                <li class="active"><a href="/ecabcardio/home" title="Home" class="animsition-link">Acasă</a></li>
+                <li class="active"><a href="/ecabcardio/patient/design" title="Pacient" class="animsition-link">Pacient</a></li>
+                <li class="active"><a href="/ecabcardio/consult" title="Consult" class="animsition-link">Consult</a></li>
+<!--                <li><a href="service-list.html" title="Service" class="animsition-link">Service List</a>
                 <ul>
                   <li><a href="service-list.html" title="Service List">Service List</a></li>
                   <li><a href="service-detail.html" title="Service Detail">Service Detail</a></li>
@@ -21,7 +23,7 @@
                 </li>
                 <li><a href="contact-us.html" title="Contact Us" class="animsition-link">Contact Us</a></li>
                 <li><a href="testimonials.html" title="Testimonials" class="animsition-link">Testimonials</a></li>
-                <li><a href="typography.html" title="Style Guide" class="animsition-link">style guide</a></li>
+                <li><a href="typography.html" title="Style Guide" class="animsition-link">style guide</a></li>-->
                 </ul>
             </div>
           </div>
