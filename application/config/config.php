@@ -23,11 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-<<<<<<< HEAD
 $config['base_url'] = 'http://hdcs.go.ro/ecabcardio/';
-=======
-$config['base_url'] = 'http://localhost/eCabCardio/';
->>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
 
 /*
 |--------------------------------------------------------------------------

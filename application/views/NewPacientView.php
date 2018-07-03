@@ -1,37 +1,19 @@
-<<<<<<< HEAD
 
 <html>
-=======
-<!doctype html>
-<html lang="en">
->>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
     <head>
         <title>Pacientii:</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
 
     </head>
     <body><center>
-=======
-        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.css">
-    </head>
-    <body>
-    <?php $this->load->view('nav')?>
-    <center>
->>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
         <h2> Pacient</h2>
         <div>
 
 
 
-<<<<<<< HEAD
           <form method='post' action="<?= base_url() ?>index.php/PacientController/savedata" > 
           <!--  <form method="post" name="newpatient" action="<?php echo site_url('PacientController/savedata');?>">--> 
-=======
-            <form method='post' action="<?= base_url() ?>index.php/PacientController/savedata" > 
-            <!--  <form method="post" name="newpatient" action="<?php echo site_url('PacientController/savedata'); ?>">--> 
->>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
                 <table border="1">
 
 
@@ -73,7 +55,6 @@
                     </tr> 
 
                     <tr>
-<<<<<<< HEAD
                         <td>Starea Civila</td>
                         <td><select name="list1"><option value="marital"><?php
                                     foreach ($rows3 as $row) {
@@ -107,65 +88,22 @@
                                     }
                                     ?>
                                 </option></select>
-=======
-                        
-                        <td><label>Starea Civila</label></td>
-                         <td><select name="listm" id="pos_select" class="form_input"><?php    
-                                foreach ($rows3 as $row) {
-                                    ?><option value="<?php echo $row->marital_status ?>"><?php echo $row->marital_status ?></option>
-                                <?php } ?></select>
-                        </td> 
-                    </tr>
-                    <tr>
-                        <td><label>Judet</label></td>                                    
-
-                        <td><select name="listc" id="pos_select" class="form_input"><?php    
-                                foreach ($rows1 as $row) {
-                                    ?><option value="<?php echo $row->id_county ?>"><?php echo $row->name ?></option>
-                                <?php } ?></select>
-                        </td> 
-
-                    </tr>
-
-                    <tr>
-                        <td><label>Localitate</label> </td>
-                        <td><select name="listl" id="pos_select" class="form_input"><?php
-                                foreach ($rows2 as $row) {
-                                    ?><option value="<?php echo $row->id_locality ?>"><?php echo $row->name ?></option>
-                                <?php } ?>
-                            </select>
-                        </td>
->>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
                     </tr>
 
 
 
 
                 </table>
-<<<<<<< HEAD
                 <input type="submit" name="submit" value="Add patient" >
 
 
             </form>
             <?php ?>
             <a href="http://localhost/eCabCardio/index.php/PacientController/"><button>Inapoi</button></a>
-=======
-                <br>
-                <button type="submit" class="btn btn-primary" >Adauga!</button>         
-
-            </form>
-                <br>
-                
-            <a href="http://localhost/eCabCardio/index.php/PacientController/"><button class="btn btn-dark">Pagina principala</button></a>
->>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
 
 
         </div>
     </center>
 </body>
-<<<<<<< HEAD
-=======
-<footer> Posted by: Lovasz</footer>
->>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
 </html>
 
