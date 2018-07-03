@@ -78,7 +78,11 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
+<<<<<<< HEAD
 	'database' => 'ecabcardio',
+=======
+	'database' => 'cardio',
+>>>>>>> ef81eb56943f08a2fc9fdfd9ef9686cf6ddb6a07
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => TRUE,
