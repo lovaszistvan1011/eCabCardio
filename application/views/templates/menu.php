@@ -6,7 +6,7 @@
           <div class="col-md-10 col-sm-12">
             <div id="navigation" class="navigation">
               <ul>
-                <li class="active"><a href="index.html" title="Home" class="animsition-link">Home</a></li>
+                <li class="active"><a href="/ecabcardio" title="Home" class="animsition-link">Home</a></li>
                 <li><a href="service-list.html" title="Service" class="animsition-link">Service List</a>
                 <ul>
                   <li><a href="service-list.html" title="Service List">Service List</a></li>

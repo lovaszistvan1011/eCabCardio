@@ -14,7 +14,7 @@ class Home extends CI_Controller {
         'title' => 'Title goes here',
     );
     $this->load->library('template');
-    $this->template->load('home', 'content', $data);
+    $this->template->load('home', null, $data);
   }
 
   public function home() {
