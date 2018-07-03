@@ -700,3 +700,6 @@ width: 30px; font-size: 18px; text-align: center; color: #03af9e;}
 .widget-tags a {padding: 7px 7px; font-size: 10px; line-height: 8px;}
 }
 
+.util-full-width {
+  width: 100%;
+}
