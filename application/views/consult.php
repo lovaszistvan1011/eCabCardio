@@ -25,7 +25,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       <div class="col-md-8 col-sm-8">
         <!--<div class="service-block text-center">-->
-          <?php $this->load->view('consult_form'); ?>
+          <?php 
+          $this->load->view('consult_form'); 
+//          echo $analizesList;
+          ?>
         <!--</div>-->
       </div>
 

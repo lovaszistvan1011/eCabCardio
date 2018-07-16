@@ -40,11 +40,13 @@ class ConsultController extends CI_Controller {
         'session' => $this->session->userdata(),
         'demographicalData' => $this->consult->printDemographicalData(),
         'consultsList' => $this->consult->printConsultsList(),
+        'analizesList' => $this->consult->printAnalyzesList(),
     ];
     $this->template->load('Plain', 'consult', $data);
   }
   
   public function save(){
+    $this->ConsultModel->saveConsult($this->consult->utilFormReadConsult(), $this->consult->utilFormReadConsultAnalyzes());
     $data = [
         'title' => 'Se salvează consult-ul'
     ];
