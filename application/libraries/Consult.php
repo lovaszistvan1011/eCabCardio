@@ -14,15 +14,25 @@ class Consult {
 
   function __construct() {
     $this->ci = & get_instance();
+    $this->ci->load->helper(['url', 'form']);
     $this->ci->load->model('ConsultModel');
-//    $this->load->helper('url', 'form');
   }
 
   public function printAnalyzesList() {
     $analyzesList = $this->ci->ConsultModel->getAnalysesList();
     $ret = '';
     foreach ($analyzesList as $analyze) {
-      $ret .= '<p><input type="checkbox" name="analyzes" value="' . $analyze['id_analyzes'] . '">' . $analyze['name'] . ' <span class="">' . $analyze['price'] . '</span></p>';
+      $ret .= '<p><input type="checkbox" name="analyzes[]" value="' . $analyze['id_analyzes'] . '">' . $analyze['name'] . '</p>';
+    }
+    $ret .= '';
+    return $ret;
+  }
+  
+  public function printInvestigationsList() {
+    $analyzesList = $this->ci->ConsultModel->getInvestigationsList();
+    $ret = '';
+    foreach ($analyzesList as $analyze) {
+      $ret .= '<p><input type="checkbox" name="investigations[]" value="' . $analyze['id_analyzes'] . '">' . $analyze['name'] . '</p>';
     }
     $ret .= '';
     return $ret;
@@ -61,32 +71,33 @@ class Consult {
     return $ret;
   }
   
-  
-  public function utilFormReadConsult(){
-    $ret = array();
-    $ret['Id_consult'] = $this->form->post('id_consult');
-    $ret['PhysiologicalAntecedents'] = $this->form->post('PhysiologicalAntecedents');
-    $ret['PathologicalAntecedents'] = $this->form->post('PathologicalAntecedents');
-    $ret['HeteroCollateralAntecedents'] = $this->form->post('HeteroCollateralAntecedents');
-    $ret['MediumConditions'] = $this->form->post('MediumConditions');
-    $ret['PresentStatus'] = $this->form->post('PresentStatus');
-    $ret['VascularAparatus'] = $this->form->post('VascularAparatus');
-    $ret['LocalComplementaryExams'] = $this->form->post('LocalComplementaryExams');
-    $ret['PersonalAntecedents'] = $this->form->post('PersonalAntecedents');
-    $ret['ConsultReasons'] = $this->form->post('ConsultReasons');
-    $ret['Remarks'] = $this->form->post('Remarks');
-    $ret['Diagnostic'] = $this->form->post('Diagnostic');
-    $ret['Recommendations'] = $this->form->post('Recommendations');
-    $ret['Treatment'] = $this->form->post('Treatment');
-    $ret['id_patient'] = $_SESSION['id_patient'];
-    $ret['id_employee'] = $_SESSION['id_employee'];
-    return $ret;
-  }
-  
-  public function utilFormReadConsultAnalyzes(){
-    $ret = array();
-    $ret = $this->form->post('analyzes');
-    return $ret;
-  }
+//  public function utilFormReadConsult(){
+//    $ret = array();
+//    $ret['Id_consult'] = $this->input->post('id_consult');
+//    $ret['PhysiologicalAntecedents'] = $this->input->post('PhysiologicalAntecedents');
+//    $ret['PathologicalAntecedents'] = $this->input->post('PathologicalAntecedents');
+//    $ret['HeteroCollateralAntecedents'] = $this->input->post('HeteroCollateralAntecedents');
+//    $ret['MediumConditions'] = $this->input->post('MediumConditions');
+//    $ret['PresentStatus'] = $this->input->post('PresentStatus');
+//    $ret['VascularAparatus'] = $this->input->post('VascularAparatus');
+//    $ret['LocalComplementaryExams'] = $this->input->post('LocalComplementaryExams');
+//    $ret['PersonalAntecedents'] = $this->input->post('PersonalAntecedents');
+//    $ret['ConsultReasons'] = $this->input->post('ConsultReasons');
+//    $ret['Remarks'] = $this->input->post('Remarks');
+//    $ret['Diagnostic'] = $this->input->post('Diagnostic');
+//    $ret['Recommendations'] = $this->input->post('Recommendations');
+//    $ret['Treatment'] = $this->input->post('Treatment');
+//    $ret['id_patient'] = $_SESSION['id_patient'];
+//    $ret['id_employee'] = $_SESSION['id_employee'];
+//    return $ret;
+//  }
+//  
+//  public function utilFormReadConsultAnalyzes(){
+//    return $this->input->post('analyzes');
+//  }
+//  
+//  public function utilFormReadConsultInvestigations(){
+//    return $this->input->post('analyzes');
+//  }
 
 }

@@ -9,9 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>-->
   <div class="col-md-12 col-sm-12">
     <div class="row">
-      <div class="col-md-4 col-sm-4">
+      <div class="col-md-5 col-sm-5">
         <div class="row">
-          <div class="service-block text-center mb60">
+          <div class="service-block text-center mb3">
             <!--<div class="service-img mb30"><a href="service-detail.html" class="imghover"><img src="images/service-1.jpg" class="img-responsive" alt=""></a></div>-->
             <!--<h2><a href="#" class="heading-title">Diagnostic Cardiac</a></h2>-->
             <?php echo $demographicalData; ?>
@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
       </div>
 
-      <div class="col-md-8 col-sm-8">
+      <div class="col-md-7 col-sm-7">
         <!--<div class="service-block text-center">-->
           <?php 
           $this->load->view('consult_form'); 

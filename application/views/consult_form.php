@@ -1,5 +1,5 @@
 <div id="consultForm" class="util-full-width">
-  <form actin="consult/save" method="post">
+  <form action="/ecabcardio/consult/save" method="post">
     <input type="hidden" name="id_consult" value=""" >
     <div class="row">
       <label for="consultFormPhysiologicalAntecedents "></label>
@@ -58,11 +58,17 @@
           <input type="date" id="consultFormDate" name="Date" placeholder=""/>
         </div>-->
     <div class="row">
-      <br>
-      <?php echo $analizesList; ?>
-      <br>
+      <p>&nbsp;</p>
+      <div class="col-md-6 col-sm-6">
+        <?php echo $analizesList; ?>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <?php echo $analizesList; ?>
+      </div>
+      <p>&nbsp;</p>
     </div>
     <div class="row">
+      <button id="consultFormMedicaLetter" name="medicalLetter" type="button">Scrisoare medicală</button> 
       <button id="consultFormSubmit" name="submit" type="submit">Salvează consult</button>
     </div>
 
