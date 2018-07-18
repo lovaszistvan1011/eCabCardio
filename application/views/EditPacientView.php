@@ -16,7 +16,7 @@
 if(isset($data)){
     ?>
 
-            <form method='post' action="<?= base_url() ?>index.php/PacientController/updatepatient" > 
+            <form method='post' action="<?= base_url() ?>index.php/PacientController/editpatient" > 
           
                 <table border="1">
 
@@ -61,17 +61,17 @@ if(isset($data)){
 
                     <tr>
                         <td><label>Starea Civila</label></td>
-                        <td><select name="listm" id="pos_select" class="form_input"><?php    
-                                foreach ($rows3 as $row) {
-                                    ?><option value="<?php echo $row->marital_status ?>"><?php echo $row->marital_status ?></option>
-                                <?php } ?></select>
+                        <td><select name="listm" id="pos_select" class="form_input">    
+                                <option value="married">married</option>
+                             <option value="unmarried">unmarried</option>
+                            </select>
                         </td> 
                     </tr>
                     
                     <tr>
                         <td><label>Judet</label></td>                                    
                        
-                        <td><?php echo $row1->name; ?><br><select name="listc" id="pos_select" class="form_input"><?php    
+                        <td><?php if(is_null($row1)){echo ' ';} else {echo $row1->name;} ?><br><select name="listc" id="pos_select" class="form_input"><?php    
                                 foreach ($rows1 as $row) {
                                     ?><option value="<?php echo $row->id_county ?>"><?php echo $row->name ?></option>
                                 <?php } ?></select>
@@ -83,7 +83,7 @@ if(isset($data)){
                     <tr>
                         <td><label>Localitate</label> </td>
                         
-                        <td><?php echo $row2->name; ?><br><select name="listl" id="pos_select" class="form_input"><?php
+                        <td><?php if(is_null($row2)){echo '';} else {echo $row2->name; } ?><br><select name="listl" id="pos_select" class="form_input"><?php
                                 foreach ($rows2 as $row) {
                                     ?><option value="<?php echo $row->id_locality ?>"><?php echo $row->name ?></option>
                                 <?php } ?>
@@ -107,6 +107,6 @@ if(isset($data)){
         </div>
     </center>
 </body>
-<footer> Posted by: Lovasz</footer>
+
 </html>
 
