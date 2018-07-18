@@ -4,16 +4,17 @@
         <title>Pacientii:</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.css">
     </head>
-    <body><center>
+    <body>
+    <?php $this->load->view('nav')?>
+    <center>
         <h2> Pacient:</h2>
         <div>
-            
-            <table border="1">
-                <thead>
+              <table border="1">
+                <thead class="blue-grey lighten-4">
                     <tr>
-                        <th>Numar pacient</th>
+                        <th >Numar pacient</th>
                         <th> <?php
              foreach($records as $rec){echo $rec->id_patient;}
                         ?></th>
@@ -41,21 +42,15 @@
                     <tr>
                         <td>Judet</td>
                         <td><?php
-                 foreach($records as $rec){$county= $rec->id_county;             
-                     
-              $query1=$this->db->query("SELECT county.name from county INNER JOIN patient on county.id_county = '$county' ");
-              echo $query1->row()->name;
-                 }
-                        ?></td>
+                        if(is_null($rows1)){echo '';}
+                else {echo $rows1->name;}
+                        ?></td> 
                     </tr>
                     <tr>
                         <td>Localitate</td>
                         <td><?php
-                 foreach($records as $rec){$locality= $rec->id_locality;             
-                     
-               $query1=$this->db->query("SELECT locality.name from locality INNER JOIN patient on locality.id_locality= '$locality' ");
-              echo $query1->row()->name;
-                 }
+                         if(is_null($rows2)){echo '';}
+                else {echo $rows2->name;}
                         ?></td>
                     </tr>
                     <tr>
@@ -106,7 +101,11 @@
          
             
         </div>
-     <a href="http://localhost/eCabCardio/index.php/PacientController/"><button>Inapoi</button></a>
+        <br>
+        <br>
+     <a href="http://localhost/eCabCardio/index.php/PacientController/"><button class="btn btn-dark">Pagina principala</button></a>
+     <a href="<?php echo base_url(); ?>PacientController/edit/<?php echo $rec->id_patient ?>"><button class="btn btn-dark" >Modific date pacient</button></a>
     </center></body>
+   
 </html>
 

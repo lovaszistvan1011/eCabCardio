@@ -1,32 +1,34 @@
-
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <title>Pacientii:</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.css">
     </head>
-    <body><center>
+    <body>
+    <?php $this->load->view('nav')?>
+    <center>
         <h2> Pacient</h2>
         <div>
 
 
 
-          <form method='post' action="<?= base_url() ?>index.php/PacientController/savedata" > 
-          <!--  <form method="post" name="newpatient" action="<?php echo site_url('PacientController/savedata');?>">--> 
+            <form method='post' action="<?= base_url() ?>index.php/PacientController/savedata" > 
+             
                 <table border="1">
 
 
                     <tr>
-                        <td><label for="first_name">Prenume</label></td>
+                        <td><label for="first_name">Prenume *</label></td>
                         <td><input type="text" name="first_name" size="50" /></td>
                     </tr>
                     <tr>
-                        <td><label for="last_name">Nume</label></td>
+                        <td><label for="last_name">Nume *</label></td>
                         <td><input type="text" name="last_name" size="50" /></td>
                     </tr>
                     <tr>
-                        <td><label for="birth_date">Data nasterii</label></td>
+                        <td><label for="birth_date">Data nasterii *</label></td>
                         <td><input type="date" name="birth_date" size="50" /></td>
                     </tr>
                     <tr>
@@ -50,60 +52,54 @@
                         <td><input type="text" name="email" size="50" /></td>
                     </tr>
                     <tr>
-                        <td><label for="cnp">CNP</label></td>
+                        <td><label for="cnp">CNP *</label></td>
                         <td><input type="text" name="cnp" size="13" /></td>
                     </tr> 
 
                     <tr>
-                        <td>Starea Civila</td>
-                        <td><select name="list1"><option value="marital"><?php
-                                    foreach ($rows3 as $row) {
-                                        echo "<option>" .$row->marital_status . "</option>";
-                                    
-                                    }
-                                    ?></option></select>
+                        
+                        <td><label>Starea Civila</label></td>
+                        <td><select name="listm" id="pos_select" class="form_input">
+                             <option value="married">married</option>
+                             <option value="unmarried">unmarried</option>
+                            </select>
                         </td> 
                     </tr>
+                    
                     <tr>
-                        <td>Judet</td>                                    
-                            
-                       <td><select  name="listp"><option value="contyn"><?php
-                                    // $query1= $this->db->get('county');        
-                                    foreach ($rows1 as $row) {
-                                        // echo $row->'name';
-                                        //$selectid =$line->id_county;
-                                        echo "<option>" . $row->name . "</option>";
-                                        $row->id_county;
-                                    }
-                                    ?>
+                        <td><label>Judet</label></td>                                    
 
-                                </option></select>
+                        <td><select name="listc" id="pos_select" class="form_input"><?php    
+                                foreach ($rows1 as $row) {
+                                    ?><option value="<?php echo $row->id_county ?>"><?php echo $row->name ?></option>
+                                <?php } ?></select>
                         </td> 
 
                     </tr>
+
                     <tr>
-                        <td>Localitate <td><select  name="listl"><option value="localityn"><?php
-                                   foreach ($rows2 as $row) {
-                                        echo "<option>" . $row->name . "</option>";
-                                    }
-                                    ?>
-                                </option></select>
+                        <td><label>Localitate</label> </td>
+                        <td><select name="listl" id="pos_select" class="form_input"><?php
+                                foreach ($rows2 as $row) {
+                                    ?><option value="<?php echo $row->id_locality ?>"><?php echo $row->name ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
                     </tr>
-
-
-
-
                 </table>
-                <input type="submit" name="submit" value="Add patient" >
-
+                <p>* completare obligatorie</p>
+                <br>
+                <button type="submit" class="btn btn-primary" >Adauga!</button>         
 
             </form>
-            <?php ?>
-            <a href="http://localhost/eCabCardio/index.php/PacientController/"><button>Inapoi</button></a>
+                <br>
+                
+            <a href="http://localhost/eCabCardio/index.php/PacientController/"><button class="btn btn-dark">Pagina principala</button></a>
 
 
         </div>
     </center>
 </body>
+
 </html>
 
