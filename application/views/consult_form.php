@@ -60,7 +60,7 @@
     <div class="row">
       <p>&nbsp;</p>
       <div class="col-md-6 col-sm-6">
-        <?php echo $analizesList; ?>
+        <?php echo $investigationsList; ?>
       </div>
       <div class="col-md-6 col-sm-6">
         <?php echo $analizesList; ?>

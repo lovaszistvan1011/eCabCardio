@@ -19,17 +19,18 @@ class ConsultController extends CI_Controller {
     parent::__construct();
     $this->load->helper(['url', 'form']);
     $this->load->model('ConsultModel');
-//    $this->load->library('form_validation');
     $this->load->library(['session', 'template', 'consult']);
     $this->setDemoEmployeeAndPatient();
   }
 
   private function setDemoEmployeeAndPatient() {
     If (!isset($_SESSION['id_patient'])) {
-      $_SESSION['id_patient'] = 3;
+//      $_SESSION['id_patient'] = 3;
+      $this->session->set_userdata('id_patient', 3);
     }
     If (!isset($_SESSION['id_patient'])) {
-      $_SESSION['id_employee'] = 2;
+//      $_SESSION['id_employee'] = 2;
+      $this->session->set_userdata('id_patient', 2);
     }
   }
 
@@ -50,8 +51,8 @@ class ConsultController extends CI_Controller {
             $this->utilFormReadConsult(), $this->utilFormReadConsultInvestigations(), $this->utilFormReadConsultAnalyzes()
     );
     $data = [
-        'title' => 'Se salvează consult-ul',
-        'body' => $this->form->post("PhysiologicalAntecedents")
+        'title' => 'Se salvează consult-ul' . "<br>ID emp ctrl:  [<b>" . $this->session->id_employee . '</b>]',
+        'body' => ""
     ];
     $this->template->load('Plain', 'content', $data);
   }
@@ -74,8 +75,9 @@ class ConsultController extends CI_Controller {
     $ret['Diagnostic'] = $this->input->post('Diagnostic');
     $ret['Recommendations'] = $this->input->post('Recommendations');
     $ret['Treatment'] = $this->input->post('Treatment');
-    $ret['id_patient'] = $_SESSION['id_patient'];
-    $ret['id_employee'] = $_SESSION['id_employee'];
+    $ret['id_patient'] = $this->session->id_patient;
+    $ret['id_employee'] = 2;
+//    $ret['id_employee'] = $this->session->id_employee;
     return $ret;
   }
 

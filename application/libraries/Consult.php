@@ -21,18 +21,22 @@ class Consult {
   public function printAnalyzesList() {
     $analyzesList = $this->ci->ConsultModel->getAnalysesList();
     $ret = '';
-    foreach ($analyzesList as $analyze) {
-      $ret .= '<p><input type="checkbox" name="analyzes[]" value="' . $analyze['id_analyzes'] . '">' . $analyze['name'] . '</p>';
+    if (count($analyzesList) > 0) {
+      foreach ($analyzesList as $analyze) {
+        $ret .= '<p><input type="checkbox" name="analyzes[]" value="' . $analyze['id_analyze'] . '">' . $analyze['name'] . '</p>';
+      }
     }
     $ret .= '';
     return $ret;
   }
-  
+
   public function printInvestigationsList() {
-    $analyzesList = $this->ci->ConsultModel->getInvestigationsList();
+    $investigationsList = $this->ci->ConsultModel->getInvestigationsList();
     $ret = '';
-    foreach ($analyzesList as $analyze) {
-      $ret .= '<p><input type="checkbox" name="investigations[]" value="' . $analyze['id_analyzes'] . '">' . $analyze['name'] . '</p>';
+    if (count($investigationsList) > 0) {
+      foreach ($investigationsList as $investigation) {
+        $ret .= '<p><input type="checkbox" name="investigations[]" value="' . $investigation['id_investigations'] . '">' . $investigation['name'] . '</p>';
+      }
     }
     $ret .= '';
     return $ret;
@@ -53,24 +57,71 @@ class Consult {
     $consultsList = $this->ci->ConsultModel->getConsultsList();
     $ret = '';
     if (count($consultsList) > 0) {
-      $ret .= '<ul>';
-      $ret .= '<li><a href="#">Consult nou</a></li>';
-      foreach ($consultsList as $consult) {
-        $ret .= '<hr><li>'
-                . '<a href="#">' . $consult['date'] . '</a> '
-                . '<br>' . $consult['consult_reasons'] . ' '
-                . '<br>' . $consult['remarks'] . ' '
-                . '<br>' . $consult['recommendations'] . ' '
-                . '<br>' . $consult['treatment'] . ' '
-                . '<br>' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'] . ''
-                . '</li><hr>';
-      }
-      $ret .= '</ul>';
+//      $ret .= '<div id="accordion">';
+//      $ret .= '<li><a href="#">Consult nou</a></li>';
+//      $i = 0;
+//      foreach ($consultsList as $consult) {
+////        $ret .= '<div class="card">';
+//        $ret .= ' <button data-toggle="collapse" data-target="#demo">Collapsible</button>
+//
+//<div id="demo" class="collapse">
+//Lorem ipsum dolor text....
+//</div>';
+//        $ret .= '</div>'; //card
+//        $i++;
+//      }
+//      unset($i);
+//      $ret .= '';
+//      $ret .= '</div>'; // /accordion
+// ' . $consult['date'] . '
+// <br>' . $consult['consult_reasons'] . ' <br>' . $consult['remarks'] . ' <br>' . $consult['recommendations'] . ' <br>' . $consult['treatment'] . ' <br>' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'] . '
     }
-    $ret .= '';
+
+    $ret .= ' <div id="accordion">
+
+  <div class="card">
+    <div class="card-header">
+      <a class="card-link" data-toggle="collapse" href="#collapseOne">
+        Collapsible Group Item #1
+      </a>
+    </div>
+    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+      <div class="card-body">
+        Lorem ipsum..
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+        Collapsible Group Item #2
+      </a>
+    </div>
+    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+        Lorem ipsum..
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+        Collapsible Group Item #3
+      </a>
+    </div>
+    <div id="collapseThree" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+        Lorem ipsum..
+      </div>
+    </div>
+  </div>
+
+</div> ';
     return $ret;
   }
-  
+
 //  public function utilFormReadConsult(){
 //    $ret = array();
 //    $ret['Id_consult'] = $this->input->post('id_consult');
@@ -99,5 +150,4 @@ class Consult {
 //  public function utilFormReadConsultInvestigations(){
 //    return $this->input->post('analyzes');
 //  }
-
 }
