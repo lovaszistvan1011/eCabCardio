@@ -12,7 +12,7 @@ class PacientController extends CI_Controller {
     }
 
     function index() {
-        $this->load->view('search_design');
+        $this->load->view('search');
     }
 
     public function search_keyword() {

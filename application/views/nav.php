@@ -28,6 +28,8 @@
         <div class="row">
           <div class="service-block text-center mb3">
             <ul class="nav navbar-nav navbar-left">
+                <li><a href="<?php echo base_url(); ?>HomeController/">Acasa</a>
+                </li>
                 <li><a href="<?php echo base_url(); ?>PacientController/">Cautare</a>
                 </li>
                 <li><a href="<?php echo base_url(); ?>PacientController/insert_data">Pacient Nou</a>
@@ -37,5 +39,7 @@
             </ul>
           </div>
         </div>
-      
       </div>
+    </div>
+      </div>
+</div>
