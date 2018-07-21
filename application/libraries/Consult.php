@@ -94,32 +94,4 @@ class Consult {
     return $ret;
   }
 
-//  public function utilFormReadConsult(){
-//    $ret = array();
-//    $ret['Id_consult'] = $this->input->post('id_consult');
-//    $ret['PhysiologicalAntecedents'] = $this->input->post('PhysiologicalAntecedents');
-//    $ret['PathologicalAntecedents'] = $this->input->post('PathologicalAntecedents');
-//    $ret['HeteroCollateralAntecedents'] = $this->input->post('HeteroCollateralAntecedents');
-//    $ret['MediumConditions'] = $this->input->post('MediumConditions');
-//    $ret['PresentStatus'] = $this->input->post('PresentStatus');
-//    $ret['VascularAparatus'] = $this->input->post('VascularAparatus');
-//    $ret['LocalComplementaryExams'] = $this->input->post('LocalComplementaryExams');
-//    $ret['PersonalAntecedents'] = $this->input->post('PersonalAntecedents');
-//    $ret['ConsultReasons'] = $this->input->post('ConsultReasons');
-//    $ret['Remarks'] = $this->input->post('Remarks');
-//    $ret['Diagnostic'] = $this->input->post('Diagnostic');
-//    $ret['Recommendations'] = $this->input->post('Recommendations');
-//    $ret['Treatment'] = $this->input->post('Treatment');
-//    $ret['id_patient'] = $_SESSION['id_patient'];
-//    $ret['id_employee'] = $_SESSION['id_employee'];
-//    return $ret;
-//  }
-//  
-//  public function utilFormReadConsultAnalyzes(){
-//    return $this->input->post('analyzes');
-//  }
-//  
-//  public function utilFormReadConsultInvestigations(){
-//    return $this->input->post('analyzes');
-//  }
 }

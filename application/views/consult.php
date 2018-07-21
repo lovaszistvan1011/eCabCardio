@@ -2,6 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
+<br>Sesiune: <?php print_r( $session); ?>
+<br>
+<br>
+
 <div class="container-fluid">
   <div class="col-md-12 col-sm-12">
     <div class="row">

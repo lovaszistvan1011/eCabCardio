@@ -2,17 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Consult
- *
- * @author Stefan Halus
- */
 class ConsultController extends CI_Controller {
 
   public function __construct() {
@@ -24,13 +13,11 @@ class ConsultController extends CI_Controller {
   }
 
   private function setDemoEmployeeAndPatient() {
-    If (!isset($_SESSION['id_patient'])) {
-//      $_SESSION['id_patient'] = 3;
+    If (!$this->session->id_patient) {
       $this->session->set_userdata('id_patient', 3);
     }
-    If (!isset($_SESSION['id_patient'])) {
-//      $_SESSION['id_employee'] = 2;
-      $this->session->set_userdata('id_patient', 2);
+    If (!$this->session->id_employee) {
+      $this->session->set_userdata('id_employee', 2);
     }
   }
 
@@ -76,8 +63,8 @@ class ConsultController extends CI_Controller {
     $ret['Recommendations'] = $this->input->post('Recommendations');
     $ret['Treatment'] = $this->input->post('Treatment');
     $ret['id_patient'] = $this->session->id_patient;
-    $ret['id_employee'] = 2;
-//    $ret['id_employee'] = $this->session->id_employee;
+//    $ret['id_employee'] = 2;
+    $ret['id_employee'] = $this->session->id_employee;
     return $ret;
   }
 

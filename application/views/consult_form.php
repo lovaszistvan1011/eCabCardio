@@ -57,12 +57,12 @@
           <label for="consultFormDate"></label>
           <input type="date" id="consultFormDate" name="Date" placeholder=""/>
         </div>-->
-    <div class="row form-group">
-      <div class="col-md-6 col-sm-6">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
         <h5>Investigații efectuate</h5>
         <?php echo $investigationsList; ?>
       </div>
-      <div class="col-md-6 col-sm-6">
+      <div class="col-md-6 col-sm-6 form-group">
         <h5>Analize recomandate</h5>
         <?php echo $analizesList; ?>
       </div>
