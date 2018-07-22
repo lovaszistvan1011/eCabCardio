@@ -13,24 +13,30 @@ class ConsultController extends CI_Controller {
   }
 
   private function setDemoEmployeeAndPatient() {
-    If (!$this->session->id_patient) {
-      $this->session->set_userdata('id_patient', 3);
-    }
     If (!$this->session->id_employee) {
       $this->session->set_userdata('id_employee', 2);
     }
   }
 
-  public function index() {
-    $data = [
-        'title' => 'Consult',
-        'session' => $this->session->userdata(),
-        'demographicalData' => $this->consult->printDemographicalData(),
-        'consultsList' => $this->consult->printConsultsList(),
-        'analizesList' => $this->consult->printAnalyzesList(),
-        'investigationsList' => $this->consult->printInvestigationsList(),
-    ];
-    $this->template->load('Plain', 'consult', $data);
+  public function index($patient = 0) {
+    if ($patient) {
+      $this->session->set_userdata('id_patien', $patient);
+      $data = [
+          'title' => 'Consult',
+          'session' => $this->session->userdata(),
+          'demographicalData' => $this->consult->printDemographicalData($patient),
+          'consultsList' => $this->consult->printConsultsList($patient),
+          'analizesList' => $this->consult->printAnalyzesList(),
+          'investigationsList' => $this->consult->printInvestigationsList(),
+      ];
+      $this->template->load('Plain', 'consult', $data);
+    } else {
+      $data = [
+      'title' => 'Consult',
+      'body' => 'Nu ați selectat vreun pacient!'
+      ];
+      $this->template->load('Plain', null, $data);
+    }
   }
 
   public function save() {
@@ -63,8 +69,8 @@ class ConsultController extends CI_Controller {
     $data = [
         'title' => 'Consult',
         'session' => $this->session->userdata(),
-        'demographicalData' => $this->consult->printDemographicalData(),
-        'consultsList' => $this->consult->printConsultsList(),
+        'demographicalData' => $this->consult->printDemographicalData($dbrez['consult']['id_patient']),
+        'consultsList' => $this->consult->printConsultsList($dbrez['consult']['id_patient']),
         'consultDetails' => $this->utilFormEditConsult($dbConsult),
         'analizesList' => $this->consult->printAnalyzesList($dbAnalyzes),
         'investigationsList' => $this->consult->printInvestigationsList($dbInvestigations),
@@ -74,7 +80,6 @@ class ConsultController extends CI_Controller {
 
   /////////////////////////////////////
   /// Utils methods
-
   private function utilFormReadConsult() {
     $ret['Id_consult'] = $this->input->post('id_consult');
     $ret['PhysiologicalAntecedents'] = $this->input->post('PhysiologicalAntecedents');
@@ -90,13 +95,7 @@ class ConsultController extends CI_Controller {
     $ret['Diagnostic'] = $this->input->post('Diagnostic');
     $ret['Recommendations'] = $this->input->post('Recommendations');
     $ret['Treatment'] = $this->input->post('Treatment');
-    if($this->input->post('id_patient') > 0) {
-      $ret['id_patient'] = $this->input->post('id_patient');
-    } else {
-      $ret['id_patient'] = $this->session->id_patient;
-    }
-
-//    $ret['id_employee'] = 2;
+    $ret['Id_patient'] = $this->input->post('id_patient');
     $ret['id_employee'] = $this->session->id_employee;
     return $ret;
   }
@@ -117,6 +116,7 @@ class ConsultController extends CI_Controller {
     $ret['Recommendations'] = $consult['recommendations'];
     $ret['Treatment'] = $consult['treatment'];
     $ret['Id_patient'] = $consult['id_patient'];
+    $ret['Id_employee'] = $this->session->id_employee;
     return $ret;
   }
 

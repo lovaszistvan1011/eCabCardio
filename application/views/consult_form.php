@@ -1,78 +1,108 @@
 <div id="consultForm" class="util-full-width">
-  <form id="consultForm" action="#" method="post">
-    <input type="hidden" name="id_consult" value="<?php if(isset($consultDetails['Id_consult'])){ echo $consultDetails['Id_consult']; } ?>">
-    <input type="hidden" name="id_patient" value="<?php if(isset($consultDetails['Id_patient'])){ echo $consultDetails['Id_patient']; } ?>">
-    <div class="form-group">
-      <label for="consultFormPhysiologicalAntecedents "></label>
-      <textarea id="consultFormPhysiologicalAntecedents" name="PhysiologicalAntecedents" placeholder="Antecedente fizice" class="util-full-width textarea"><?php if(isset($consultDetails['PhysiologicalAntecedents'])){ echo $consultDetails['PhysiologicalAntecedents']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormPathologicalAntecedents"></label>
-      <textarea id="consultFormPathologicalAntecedents" name="PathologicalAntecedents" placeholder="Antecedente patologice" class="util-full-width textarea"><?php if(isset($consultDetails['PathologicalAntecedents'])){ echo $consultDetails['PathologicalAntecedents']; }  ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormHeteroCollateralAntecedents"></label>
-      <textarea id="consultFormHeteroCollateralAntecedents" name="HeteroCollateralAntecedents" placeholder="Antecedente hetero-coaterale" class="util-full-width textarea"><?php if(isset($consultDetails['HeteroCollateralAntecedents'])){ echo $consultDetails['HeteroCollateralAntecedents']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormMediumConditions"></label>
-      <textarea id="consultFormMediumConditions" name="MediumConditions" placeholder="Condiții de mediu" class="util-full-width textarea"><?php if(isset($consultDetails['MediumConditions'])){ echo $consultDetails['MediumConditions']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormPresentStatus"></label>
-      <textarea id="consultFormPresentStatus" name="PresentStatus" placeholder="Starea prezentă" class="util-full-width textarea"><?php if(isset($consultDetails['PresentStatus'])){ echo $consultDetails['PresentStatus']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormVascularAparatus"></label>
-      <textarea id="consultFormVascularAparatus" name="VascularAparatus" placeholder="Status personal" class="util-full-width textarea"><?php if(isset($consultDetails['VascularAparatus'])){ echo $consultDetails['VascularAparatus']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormLocalComplementaryExams"></label>
-      <textarea id="consultFormLocalComplementaryExams" name="LocalComplementaryExams" placeholder="Examen complementar local" class="util-full-width textarea"><?php if(isset($consultDetails['LocalComplementaryExams'])){ echo $consultDetails['LocalComplementaryExams']; }  ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormPersonalAntecedents"></label>
-      <textarea id="consultFormPersonalAntecedents" name="PersonalAntecedents" placeholder="Antecedente personale" class="util-full-width textarea"><?php if(isset($consultDetails['PersonalAntecedents'])){ echo $consultDetails['PersonalAntecedents']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormConsultReasons"></label>
-      <textarea id="consultFormConsultReasons" name="ConsultReasons" placeholder="Motivul consultului" class="util-full-width textarea"><?php if(isset($consultDetails['ConsultReasons'])){ echo $consultDetails['ConsultReasons']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormRemarks"></label>
-      <textarea id="consultFormRemarks" name="Remarks" placeholder="Observații" class="util-full-width textarea"><?php if(isset($consultDetails['Remarks'])){ echo $consultDetails['Remarks']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormDiagnostic"></label>
-      <textarea id="consultFormDiagnostic" name="Diagnostic" placeholder="Diagnostic" class="util-full-width textarea"><?php if(isset($consultDetails['Diagnostic'])){ echo $consultDetails['Diagnostic']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormRecommendations"></label>
-      <textarea id="consultFormRecommendations" name="Recommendations" placeholder="Recomandări" class="util-full-width textarea"><?php if(isset($consultDetails['Recommendations'])){ echo $consultDetails['Recommendations']; } ?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="consultFormTreatment"></label>
-      <textarea id="consultFormTreatment" name="Treatment" placeholder="Tratament" class="util-full-width textarea"><?php if(isset($consultDetails['Treatment'])){ echo $consultDetails['Treatment']; } ?></textarea>
-    </div>
-    <!--    <div class="form-group">
-          <label for="consultFormDate"></label>
-          <input type="date" id="consultFormDate" name="Date" placeholder=""/>
-        </div>-->
-    <div class="row">
-      <div class="col-md-6 col-sm-6 form-group">
-        <h5>Investigații efectuate</h5>
-        <?php echo $investigationsList; ?>
-      </div>
-      <div class="col-md-6 col-sm-6 form-group">
-        <h5>Analize recomandate</h5>
-        <?php echo $analizesList; ?>
-      </div>
-      <p>&nbsp;</p>
-    </div>
-    <div class="form-group">
-      <button id="consultFormMedicaLetter" name="medicalLetter" type="button">Scrisoare medicală</button> 
-      <button id="consultFormSubmit" name="submit" type="submit">Salvează consult</button>
-    </div>
 
-  </form>
+  <?php
+  if (!isset($consultDetails)) {
+    $consultDetails = array();
+  }
+  $formAtribs = array(
+      'id' => 'consultForm',
+      'accept-charset' => 'utf-8',
+      'method' => 'post'
+  );
+  $hidden = array();
+  if (isset($consultDetails['Id_consult']) && $consultDetails['Id_consult'] > 0) {
+    $hidden['id_consult'] = $consultDetails['Id_consult'];
+  } else {
+    $hidden['id_consult'] = 0;
+  }
+  if (isset($consultDetails['Id_patient'])) {
+    $hidden['id_patient'] = $consultDetails['Id_patient'];
+  } else {
+    $hidden['id_patient'] = $this->session->id_patient;
+  }
+  if (isset($consultDetails['Id_employee']) && $consultDetails['Id_employee'] > 0) {
+    $hidden[''] = $consultDetails['Id_employee'];
+  } else {
+    $hidden[''] = $this->session->id_employee;
+  }
+  $btnLetter = array(
+      'name' => 'medicalLetter',
+      'id' => 'consultFormMedicalLetter',
+      'value' => 'true',
+      'type' => 'button',
+      'content' => 'Scrisoare medicală'
+  );
+  $btnSubmit = array(
+      'name' => 'btnSubmit',
+      'id' => 'consultFormSubmit',
+      'value' => 'true',
+      'type' => 'submit',
+      'content' => 'Scrisoare medicală'
+  );
+
+  function taConsult($name, $placeholder, $value = '') {
+    $ta = array();
+    $ta['data'] = array(
+        'name' => $name,
+        'placeholder' => $placeholder,
+        'id' => 'consultForm' . $name,
+        'class' => 'util-full-width textarea'
+    );
+    if (isset($value[$name])) {
+      $ta['value'] = $value[$name];
+    } else {
+      $ta['value'] = '';
+    }
+//    $ta['value'] = $value;
+    return $ta;
+  }
+
+  $ta[] = taConsult('PhysiologicalAntecedents', 'Antecedente fizice', $consultDetails);
+  $ta[] = taConsult('PathologicalAntecedents', 'Antecedente patologice', $consultDetails);
+  $ta[] = taConsult('HeteroCollateralAntecedents', 'Antecedente hetero-coaterale', $consultDetails);
+  $ta[] = taConsult('MediumConditions', 'Condiții de mediu', $consultDetails);
+  $ta[] = taConsult('PresentStatus', 'Starea prezentă', $consultDetails);
+  $ta[] = taConsult('VascularAparatus', 'Status personal', $consultDetails);
+  $ta[] = taConsult('LocalComplementaryExams', 'Examen complementar local', $consultDetails);
+  $ta[] = taConsult('PersonalAntecedents', 'Antecedente personale', $consultDetails);
+  $ta[] = taConsult('ConsultReasons', 'Motivul consultului', $consultDetails);
+  $ta[] = taConsult('Remarks', 'Observații', $consultDetails);
+  $ta[] = taConsult('Diagnostic', 'Diagnostic', $consultDetails);
+  $ta[] = taConsult('Recommendations', 'Recomandări', $consultDetails);
+  $ta[] = taConsult('Treatment', 'Tratament', $consultDetails);
+//  $ta[] = taConsult('', '');
+//  $ta[] = taConsult('', '');
+//  echo var_dump($ta[0]);
+
+  echo form_open('consult/save', $formAtribs, $hidden);
+  echo form_fieldset('Datele consultului');
+//  echo form_hidden($hidden);
+  foreach ($ta as $taItem) {
+    echo '<div class="form-group">';
+    echo form_textarea($taItem['data'], $taItem['value']);
+    echo '</div>';
+  }
+  echo '<div class="row">';
+  echo '<div class="col-md-6 col-sm-6 form-group">';
+  echo '<h5>Investigații efectuate</h5>';
+  echo $investigationsList;
+  echo '</div>';
+  echo '<div class="col-md-6 col-sm-6 form-group">';
+  echo '<h5>Analize recomandate</h5>';
+  echo $analizesList;
+  echo '</div>';
+  echo '<p>&nbsp;</p>';
+  echo '</div>';
+  echo '<div class="form-group">';
+  echo form_button($btnLetter);
+  echo form_button($btnSubmit);
+  echo '</div>';
+  echo '<div class="form-group">';
+  echo form_error('consultFormError', '<div class="error">', '</div>');
+  echo '</div>';
+  echo form_fieldset_close();
+  echo form_close();
+  ?>
+
+</form>
 </div>

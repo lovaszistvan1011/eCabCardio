@@ -52,8 +52,8 @@ class Consult {
     return $ret;
   }
 
-  public function printDemographicalData() {
-    $demographicalData = $this->ci->ConsultModel->getDemographicalData();
+  public function printDemographicalData($patient) {
+    $demographicalData = $this->ci->ConsultModel->getDemographicalData($patient);
     $ret = '<h3>' . $demographicalData['first_name'] . ' ' . $demographicalData['last_name'] . '</h3>';
     $ret .= '<p>' . $demographicalData['cnp'];
     $ret .= '<br>' . $demographicalData['birth_date'] . ' ' . $demographicalData['marital_status'];
@@ -63,8 +63,8 @@ class Consult {
     return $ret;
   }
 
-  public function printConsultsList() {
-    $consultsList = $this->ci->ConsultModel->getConsultsList();
+  public function printConsultsList($patient) {
+    $consultsList = $this->ci->ConsultModel->getConsultsList($patient);
     $ret = '';
     if (count($consultsList) > 0) {
       $ret .= '<div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">';
