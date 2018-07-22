@@ -6,9 +6,9 @@
         <div class="col-md-10 col-sm-12">
           <div id="navigation" class="navigation">
             <ul>
-              <li class="active"><a href="/ecabcardio/home" title="Home" class="animsition-link">Acasă</a></li>
-              <li class="active"><a href="/ecabcardio/patient/design" title="Pacient" class="animsition-link">Pacient</a></li>
-              <li class="active"><a href="/ecabcardio/consult" title="Consult" class="animsition-link">Consult</a></li>
+              <li class="active"><a href="/eCabCardio/home" title="Home" class="animsition-link">Acasă</a></li>
+              <li class="active"><a href="/eCabCardio/patient/design" title="Pacient" class="animsition-link">Pacient</a></li>
+              <li class="active"><a href="/eCabCardio/consult" title="Consult" class="animsition-link">Consult</a></li>
               <!--                <li><a href="service-list.html" title="Service" class="animsition-link">Service List</a>
                               <ul>
                                 <li><a href="service-list.html" title="Service List">Service List</a></li>

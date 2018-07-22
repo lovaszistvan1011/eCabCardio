@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta charset="UDF-8">
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/appearance/css/animsition.min.css" media="screen"/>
     
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/appearance/css/bootstrap.min.css" media="screen"/>
