@@ -27,9 +27,9 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-2 hidden-sm hidden-xs navigation-search">
+<!--        <div class="col-md-2 hidden-sm hidden-xs navigation-search">
           <a href="#"><i class="fa fa-search"></i></a>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>

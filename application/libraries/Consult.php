@@ -57,68 +57,40 @@ class Consult {
     $consultsList = $this->ci->ConsultModel->getConsultsList();
     $ret = '';
     if (count($consultsList) > 0) {
-//      $ret .= '<div id="accordion">';
+      $ret .= '<div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">';
 //      $ret .= '<li><a href="#">Consult nou</a></li>';
-//      $i = 0;
-//      foreach ($consultsList as $consult) {
-////        $ret .= '<div class="card">';
-//        $ret .= ' <button data-toggle="collapse" data-target="#demo">Collapsible</button>
-//
-//<div id="demo" class="collapse">
-//Lorem ipsum dolor text....
-//</div>';
-//        $ret .= '</div>'; //card
-//        $i++;
-//      }
-//      unset($i);
-//      $ret .= '';
-//      $ret .= '</div>'; // /accordion
+      $i = 0;
+      foreach ($consultsList as $consult) {
+        $ret .= '<div class="card">';
+        $ret .= '<div class="card-header" role="tab" id="heading' . $i . '">
+            <a data-toggle="collapse" data-parent="#accordionConsultHistory" href="#collapse' . $i . '" aria-expanded="false" aria-controls="collapse' . $i . '">
+                <h5 class="mb-0">' . $consult['date'] . '</h5>
+            </a>
+        </div>';
+        $ret .= '<div id="collapse' . $i . '" class="collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionConsultHistory">
+  <div class="card-body">
+  <em>Motiv:</em> ' . $consult['consult_reasons'] . ' '
+                . '<br><em>Observații:</em> ' . $consult['remarks'] . ' '
+                . '<br><em>Recomandări:</em> ' . $consult['recommendations'] . ' '
+                . '<br><em>Tratament:</em> ' . $consult['treatment'] . ' '
+                . '<br><em>Medic:</em> ' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'] . '
+  </div>
+</div>';
+        $ret .= '';
+        $ret .= '';
+        $ret .= '</div>';
+        $i++;
+      }
+      unset($i);
+      $ret .= '';
+      $ret .= '</div>
+    <!-- Accordion wrapper -->'; // /accordion
 // ' . $consult['date'] . '
 // <br>' . $consult['consult_reasons'] . ' <br>' . $consult['remarks'] . ' <br>' . $consult['recommendations'] . ' <br>' . $consult['treatment'] . ' <br>' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'] . '
     }
 
-    $ret .= ' <div id="accordion">
-
-  <div class="card">
-    <div class="card-header">
-      <a class="card-link" data-toggle="collapse" href="#collapseOne">
-        Collapsible Group Item #1
-      </a>
-    </div>
-    <div id="collapseOne" class="collapse show" data-parent="#accordion">
-      <div class="card-body">
-        Lorem ipsum..
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-        Collapsible Group Item #2
-      </a>
-    </div>
-    <div id="collapseTwo" class="collapse" data-parent="#accordion">
-      <div class="card-body">
-        Lorem ipsum..
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-        Collapsible Group Item #3
-      </a>
-    </div>
-    <div id="collapseThree" class="collapse" data-parent="#accordion">
-      <div class="card-body">
-        Lorem ipsum..
-      </div>
-    </div>
-  </div>
-
-</div> ';
+    $ret .= '
+';
     return $ret;
   }
 
