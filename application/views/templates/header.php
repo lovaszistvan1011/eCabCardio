@@ -15,6 +15,7 @@
     <script src="<?php echo base_url();?>/appearance/js/sticky-header.js"></script>
     <script src="<?php echo base_url();?>/appearance/js/script.js"></script>
     <script src="<?php echo base_url();?>/appearance/js/jquery.sticky.js"></script>
+    <script src="<?php echo base_url();?>/appearance/ajax/consult.js"></script>
     
     <title>eCabCardio app</title>
     </head>

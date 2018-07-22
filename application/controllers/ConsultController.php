@@ -34,14 +34,42 @@ class ConsultController extends CI_Controller {
   }
 
   public function save() {
-    $this->ConsultModel->saveConsult(
-            $this->utilFormReadConsult(), $this->utilFormReadConsultInvestigations(), $this->utilFormReadConsultAnalyzes()
+    $lastInsertId = $this->ConsultModel->saveConsult($this->utilFormReadConsult(), $this->utilFormReadConsultInvestigations(), $this->utilFormReadConsultAnalyzes()
     );
+    $dbrez = $this->ConsultModel->getConsultById($lastInsertId);
+//    print_r($dbrez);
+    if ($lastInsertId > 1) {
+      $userData['status'] = 'ok';
+      $userData['liid'] = $lastInsertId;
+      $userData['result'] = $dbrez['consult'];
+    } else {
+      $userData['status'] = 'err';
+      $userData['liid'] = 0;
+      $userData['result'] = '';
+    }
+
     $data = [
-        'title' => 'Se salvează consult-ul' . "<br>ID emp ctrl:  [<b>" . $this->session->id_employee . '</b>]',
-        'body' => ""
+        'title' => '',
+        'body' => json_encode($userData)
     ];
-    $this->template->load('Plain', 'content', $data);
+    $this->template->load('txt', null, $data);
+  }
+
+  public function view($id) {
+    $dbrez = $this->ConsultModel->getConsultById($id);
+    $dbConsult = $dbrez['consult'];
+    $dbInvestigations = $dbrez['investigations'];
+    $dbAnalyzes = $dbrez['analyzes'];
+    $data = [
+        'title' => 'Consult',
+        'session' => $this->session->userdata(),
+        'demographicalData' => $this->consult->printDemographicalData(),
+        'consultsList' => $this->consult->printConsultsList(),
+        'consultDetails' => $this->utilFormEditConsult($dbConsult),
+        'analizesList' => $this->consult->printAnalyzesList($dbAnalyzes),
+        'investigationsList' => $this->consult->printInvestigationsList($dbInvestigations),
+    ];
+    $this->template->load('Plain', 'consult', $data);
   }
 
   /////////////////////////////////////
@@ -62,9 +90,33 @@ class ConsultController extends CI_Controller {
     $ret['Diagnostic'] = $this->input->post('Diagnostic');
     $ret['Recommendations'] = $this->input->post('Recommendations');
     $ret['Treatment'] = $this->input->post('Treatment');
-    $ret['id_patient'] = $this->session->id_patient;
+    if($this->input->post('id_patient') > 0) {
+      $ret['id_patient'] = $this->input->post('id_patient');
+    } else {
+      $ret['id_patient'] = $this->session->id_patient;
+    }
+
 //    $ret['id_employee'] = 2;
     $ret['id_employee'] = $this->session->id_employee;
+    return $ret;
+  }
+
+  private function utilFormEditConsult($consult = array()) {
+    $ret['Id_consult'] = $consult['id_consult'];
+    $ret['PhysiologicalAntecedents'] = $consult['physiological_antecedents'];
+    $ret['PathologicalAntecedents'] = $consult['pathological_antecedents'];
+    $ret['HeteroCollateralAntecedents'] = $consult['hetero_collateral_antecedents'];
+    $ret['MediumConditions'] = $consult['medium_conditions'];
+    $ret['PresentStatus'] = $consult['present_status'];
+    $ret['VascularAparatus'] = $consult['vascular_apparatus'];
+    $ret['LocalComplementaryExams'] = $consult['local_complementary_exams'];
+    $ret['PersonalAntecedents'] = $consult['personal_antecedents'];
+    $ret['ConsultReasons'] = $consult['consult_reasons'];
+    $ret['Remarks'] = $consult['remarks'];
+    $ret['Diagnostic'] = $consult['diagnostic'];
+    $ret['Recommendations'] = $consult['recommendations'];
+    $ret['Treatment'] = $consult['treatment'];
+    $ret['Id_patient'] = $consult['id_patient'];
     return $ret;
   }
 

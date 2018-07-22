@@ -18,24 +18,34 @@ class Consult {
     $this->ci->load->model('ConsultModel');
   }
 
-  public function printAnalyzesList() {
+  public function printAnalyzesList($check = array()) {
     $analyzesList = $this->ci->ConsultModel->getAnalysesList();
     $ret = '';
     if (count($analyzesList) > 0) {
       foreach ($analyzesList as $analyze) {
-        $ret .= '<p><input type="checkbox" name="analyzes[]" value="' . $analyze['id_analyze'] . '">' . $analyze['name'] . '</p>';
+        if (array_key_exists($analyze['id_analyze'], $check)) {
+          $checkStatus = ' checked="yes"';
+        } else {
+          $checkStatus = '';
+        }
+        $ret .= '<p><input type="checkbox" name="analyzes[]" value="' . $analyze['id_analyze'] . '"' . $checkStatus . '>' . $analyze['name'] . '</p>';
       }
     }
     $ret .= '';
     return $ret;
   }
 
-  public function printInvestigationsList() {
+  public function printInvestigationsList($check = array()) {
     $investigationsList = $this->ci->ConsultModel->getInvestigationsList();
     $ret = '';
     if (count($investigationsList) > 0) {
       foreach ($investigationsList as $investigation) {
-        $ret .= '<p><input type="checkbox" name="investigations[]" value="' . $investigation['id_investigations'] . '">' . $investigation['name'] . '</p>';
+        if (array_key_exists($investigation['id_investigations'], $check)) {
+          $checkStatus = ' checked';
+        } else {
+          $checkStatus = '';
+        }
+        $ret .= '<p><input type="checkbox" name="investigations[]" value="' . $investigation['id_investigations'] . '"' . $checkStatus . '>' . $investigation['name'] . '</p>';
       }
     }
     $ret .= '';
@@ -84,9 +94,7 @@ class Consult {
       unset($i);
       $ret .= '';
       $ret .= '</div>
-    <!-- Accordion wrapper -->'; // /accordion
-// ' . $consult['date'] . '
-// <br>' . $consult['consult_reasons'] . ' <br>' . $consult['remarks'] . ' <br>' . $consult['recommendations'] . ' <br>' . $consult['treatment'] . ' <br>' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'] . '
+    <!-- Accordion wrapper -->';
     }
 
     $ret .= '

@@ -11,4 +11,5 @@ $route['patient'] = 'PacientController';
 $route['patient/design'] = 'PacientController/design';
 $route['consult'] = 'ConsultController';
 $route['consult/save'] = 'ConsultController/save';
+$route['consult/view/(:num)'] = 'ConsultController/view/$1';
 $route['design'] = 'HomeController';
