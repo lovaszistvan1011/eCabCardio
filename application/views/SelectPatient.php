@@ -34,6 +34,7 @@
                 ?>
              <td><a href="<?php echo base_url(); ?>PacientController/details/<?php echo $row->id_patient ?>"><button  class="btn btn-dark">Detalii</button></a> 
                  <a href="<?php echo base_url(); ?>PacientController/edit/<?php echo $row->id_patient ?>"><button  class="btn btn-dark">Modificare</button></a>
+                 <a href="<?php echo base_url(); ?>ConsultController/<?php echo $row->id_patient ?>"><button  class="btn btn-dark">Consultare</button></a>
                </td>
             <?php
                 echo "</tr>";
