@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-
 <div class="container-fluid">
   <div class="col-md-12 col-sm-12">
     <div class="row">
