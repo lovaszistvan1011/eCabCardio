@@ -1,3 +1,4 @@
+<?php echo base_url(); ?>
 <div class="container-fluid">
   <div clas="row">
     <img src="<?php echo base_url(); ?>appearance/images/ft-logo.png" alt="Logo eCabCardio" title="Logo eCabCardio" aria-label="Logo eCabCardio" aria-hidden="true"
