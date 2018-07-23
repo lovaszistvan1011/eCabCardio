@@ -18,9 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
       </div>
       <div class="col-md-7 col-sm-7">
-        <?php
-        $this->load->view('consult_form');
-        ?>
+        <?php $this->load->view('consult_form', $selectedPatient); ?>
       </div>
     </div>
   </div>

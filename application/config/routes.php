@@ -8,8 +8,13 @@ $route['translate_uri_dashes'] = FALSE;
 // Redefineing routes for our application 
 $route['home'] = 'HomeController';
 $route['patient'] = 'PacientController';
-$route['patient/design'] = 'PacientController/design';
+$route['patient/add'] = 'PacientController/insert-data';
+
+//Consult
+$route['consult/(:num)'] = 'ConsultController/$1';
 $route['consult'] = 'ConsultController';
+$route['consult/letter/(:num)'] = 'ConsultController/letter/$1';
+$route['consult/letter'] = 'ConsultController/letter';
 $route['consult/save'] = 'ConsultController/save';
 $route['consult/view/(:num)'] = 'ConsultController/view/$1';
-$route['design'] = 'HomeController';
+$route['consult/view'] = 'ConsultController/view';

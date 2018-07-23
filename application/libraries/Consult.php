@@ -68,15 +68,13 @@ class Consult {
     $ret = '';
     if (count($consultsList) > 0) {
       $ret .= '<div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">';
-//      $ret .= '<li><a href="#">Consult nou</a></li>';
       $i = 0;
       foreach ($consultsList as $consult) {
         $ret .= '<div class="card">';
         $ret .= '<div class="card-header" role="tab" id="heading' . $i . '">
             <a data-toggle="collapse" data-parent="#accordionConsultHistory" href="#collapse' . $i . '" aria-expanded="false" aria-controls="collapse' . $i . '">
                 <h5 class="mb-0">' . $consult['date'] . '</h5>
-            </a>
-        </div>';
+            </a></div>';
         $ret .= '<div id="collapse' . $i . '" class="collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionConsultHistory">
   <div class="card-body">
   <em>Motiv:</em> ' . $consult['consult_reasons'] . ' '
@@ -84,21 +82,13 @@ class Consult {
                 . '<br><em>Recomandări:</em> ' . $consult['recommendations'] . ' '
                 . '<br><em>Tratament:</em> ' . $consult['treatment'] . ' '
                 . '<br><em>Medic:</em> ' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'] . '
-  </div>
-</div>';
-        $ret .= '';
-        $ret .= '';
+  </div></div>';
         $ret .= '</div>';
         $i++;
       }
       unset($i);
-      $ret .= '';
-      $ret .= '</div>
-    <!-- Accordion wrapper -->';
+      $ret .= '</div> <!-- Accordion wrapper -->';
     }
-
-    $ret .= '
-';
     return $ret;
   }
 

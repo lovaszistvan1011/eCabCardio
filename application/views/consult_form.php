@@ -1,43 +1,40 @@
 <div id="consultForm" class="util-full-width">
-
   <?php
   if (!isset($consultDetails)) {
     $consultDetails = array();
   }
-  $formAtribs = array(
-      'id' => 'consultForm',
-      'accept-charset' => 'utf-8',
-      'method' => 'post'
-  );
+  $formAtribs = array('id' => 'consultfrm', 'accept-charset' => 'utf-8', 'method' => 'post');
   $hidden = array();
-  if (isset($consultDetails['Id_consult']) && $consultDetails['Id_consult'] > 0) {
-    $hidden['id_consult'] = $consultDetails['Id_consult'];
+  if (isset($consultDetails['id_consult']) && $consultDetails['id_consult'] > 0) {
+    $hidden['id_consult'] = $consultDetails['id_consult'];
   } else {
     $hidden['id_consult'] = 0;
   }
-  if (isset($consultDetails['Id_patient'])) {
-    $hidden['id_patient'] = $consultDetails['Id_patient'];
+  if (isset($consultDetails['id_patient'])) {
+    $hidden['id_patient'] = $consultDetails['id_patient'];
   } else {
-    $hidden['id_patient'] = $this->session->id_patient;
+    $hidden['id_patient'] = $selectedPatient;
   }
-  if (isset($consultDetails['Id_employee']) && $consultDetails['Id_employee'] > 0) {
-    $hidden[''] = $consultDetails['Id_employee'];
+  if (isset($consultDetails['id_employee']) && $consultDetails['id_employee'] > 0) {
+    $hidden['id_employee'] = $consultDetails['id_employee'];
   } else {
-    $hidden[''] = $this->session->id_employee;
+    $hidden['id_employee'] = $this->session->id_employee;
   }
   $btnLetter = array(
       'name' => 'medicalLetter',
-      'id' => 'consultFormMedicalLetter',
+      'id' => 'consultfrm_medical_letter',
       'value' => 'true',
       'type' => 'button',
+      'class' => 'btn btn-blue',
       'content' => 'Scrisoare medicală'
   );
   $btnSubmit = array(
       'name' => 'btnSubmit',
-      'id' => 'consultFormSubmit',
+      'id' => 'consultfrm_submit',
       'value' => 'true',
       'type' => 'submit',
-      'content' => 'Scrisoare medicală'
+      'class' => 'btn btn-default',
+      'content' => 'Salvează consultul'
   );
 
   function taConsult($name, $placeholder, $value = '') {
@@ -45,8 +42,9 @@
     $ta['data'] = array(
         'name' => $name,
         'placeholder' => $placeholder,
-        'id' => 'consultForm' . $name,
-        'class' => 'util-full-width textarea'
+        'id' => 'consultfrm_' . $name,
+        'class' => 'util-full-width textarea',
+        'style' => 'height:7rem;'
     );
     if (isset($value[$name])) {
       $ta['value'] = $value[$name];
@@ -57,24 +55,24 @@
     return $ta;
   }
 
-  $ta[] = taConsult('PhysiologicalAntecedents', 'Antecedente fizice', $consultDetails);
-  $ta[] = taConsult('PathologicalAntecedents', 'Antecedente patologice', $consultDetails);
-  $ta[] = taConsult('HeteroCollateralAntecedents', 'Antecedente hetero-coaterale', $consultDetails);
-  $ta[] = taConsult('MediumConditions', 'Condiții de mediu', $consultDetails);
-  $ta[] = taConsult('PresentStatus', 'Starea prezentă', $consultDetails);
-  $ta[] = taConsult('VascularAparatus', 'Status personal', $consultDetails);
-  $ta[] = taConsult('LocalComplementaryExams', 'Examen complementar local', $consultDetails);
-  $ta[] = taConsult('PersonalAntecedents', 'Antecedente personale', $consultDetails);
-  $ta[] = taConsult('ConsultReasons', 'Motivul consultului', $consultDetails);
-  $ta[] = taConsult('Remarks', 'Observații', $consultDetails);
-  $ta[] = taConsult('Diagnostic', 'Diagnostic', $consultDetails);
-  $ta[] = taConsult('Recommendations', 'Recomandări', $consultDetails);
-  $ta[] = taConsult('Treatment', 'Tratament', $consultDetails);
+  $ta[] = taConsult('physiological_antecedents', 'Antecedente fizice', $consultDetails);
+  $ta[] = taConsult('pathological_antecedents', 'Antecedente patologice', $consultDetails);
+  $ta[] = taConsult('hetero_collateral_antecedents', 'Antecedente hetero-coaterale', $consultDetails);
+  $ta[] = taConsult('medium_conditions', 'Condiții de mediu', $consultDetails);
+  $ta[] = taConsult('present_status', 'Starea prezentă', $consultDetails);
+  $ta[] = taConsult('vascular_apparatus', 'Status personal', $consultDetails);
+  $ta[] = taConsult('local_complementary_exams', 'Examen complementar local', $consultDetails);
+  $ta[] = taConsult('personal_antecedents', 'Antecedente personale', $consultDetails);
+  $ta[] = taConsult('consult_reasons', 'Motivul consultului', $consultDetails);
+  $ta[] = taConsult('remarks', 'Observații', $consultDetails);
+  $ta[] = taConsult('diagnostic', 'Diagnostic', $consultDetails);
+  $ta[] = taConsult('recommendations', 'Recomandări', $consultDetails);
+  $ta[] = taConsult('treatment', 'Tratament', $consultDetails);
 //  $ta[] = taConsult('', '');
 //  $ta[] = taConsult('', '');
 //  echo var_dump($ta[0]);
 
-  echo form_open('consult/save', $formAtribs, $hidden);
+  echo form_open('eCabCardio/consult/save', $formAtribs, $hidden);
   echo form_fieldset('Datele consultului');
 //  echo form_hidden($hidden);
   foreach ($ta as $taItem) {
