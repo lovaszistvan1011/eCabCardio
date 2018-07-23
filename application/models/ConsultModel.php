@@ -47,8 +47,9 @@ class ConsultModel extends CI_Model {
     $sql3 = "SELECT `id_analyzes` FROM `consult_analyzes` WHERE `id_consult` = '$id';";
     $query3 = $this->db->query($sql3);
     $ret['consult'] = $query->row_array();
-    $ret['investigations'] = $query2->result_array();
-    $ret['analyzes'] = $query3->result_array();
+    $ret['investigations'] = $this->investigationsSelectedArray($query2->result_array());
+    $ret['analyzes'] = $this->investigationsSelectedArray($query3->result_array());
+    $ret['consultPrice'] = $this->getInvestigationsPrice($id);
     return $ret;
   }
 
@@ -108,14 +109,41 @@ class ConsultModel extends CI_Model {
     $this->db->query($sql);
   }
 
+//  Insertsa analizes or investigations list into the relational table between consult and those two categories
   private function insertInvestigations($table = null, $insertId = null, $items = null) {
     if (count($items) > 0) {
-      $sql = "INSERT INTO `$table` (`id_consult`, `id_analyzes`) VALUES ";
-      foreach ($items as $item) {
-        $sql .= " ('" . $insertId . "', '" . $item . "'),";
+      $sql = '';
+      if ($table == 'consult_investigations') {
+        $sql .= "INSERT INTO `$table` (`id_consult`, `id_analyzes`, `price`) VALUES ";
+        foreach ($items as $item) {
+          $sql .= " ('" . $insertId . "', '" . $item . "', (SELECT `price` FROM `investigations` WHERE `id_investigations`='$item')),";
+        }
+      }
+      if ($table == 'consult_analyzes') {
+        $sql .= "INSERT INTO `consult_analyzes` (`id_consult`, `id_analyzes`) VALUES ";
+        foreach ($items as $item) {
+          $sql .= " ('" . $insertId . "', '" . $item . "'),";
+        }
       }
       $this->db->query(substr($sql, 0, -1) . ";");
     }
+  }
+
+//  Converts the list selected investigations or analyzes and prints a single dimensional array
+  private function investigationsSelectedArray($arr) {
+    $ret = array();
+    foreach ($arr as $i) {
+      $ret[] = $i['id_analyzes'];
+    }
+    return $ret;
+  }
+
+//  Method that calculates the price of a consult
+  private function getInvestigationsPrice($id) {
+    $sql2 = "SELECT SUM(`price`) AS `total` FROM `consult_investigations` WHERE `id_consult` = '$id';";
+    $query2 = $this->db->query($sql2);
+    $price = $query2->row_array();
+    return $price['total'];
   }
 
 }

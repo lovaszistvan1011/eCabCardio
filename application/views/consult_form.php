@@ -25,7 +25,7 @@
       'id' => 'consultfrm_medical_letter',
       'value' => 'true',
       'type' => 'button',
-      'class' => 'btn btn-blue',
+      'class' => 'btn btn-default pull-right',
       'content' => 'Scrisoare medicală'
   );
   $btnSubmit = array(
@@ -33,7 +33,7 @@
       'id' => 'consultfrm_submit',
       'value' => 'true',
       'type' => 'submit',
-      'class' => 'btn btn-default',
+      'class' => 'btn btn-primary',
       'content' => 'Salvează consultul'
   );
 
@@ -43,7 +43,7 @@
         'name' => $name,
         'placeholder' => $placeholder,
         'id' => 'consultfrm_' . $name,
-        'class' => 'util-full-width textarea',
+        'class' => 'form-control',
         'style' => 'height:7rem;'
     );
     if (isset($value[$name])) {
@@ -68,9 +68,6 @@
   $ta[] = taConsult('diagnostic', 'Diagnostic', $consultDetails);
   $ta[] = taConsult('recommendations', 'Recomandări', $consultDetails);
   $ta[] = taConsult('treatment', 'Tratament', $consultDetails);
-//  $ta[] = taConsult('', '');
-//  $ta[] = taConsult('', '');
-//  echo var_dump($ta[0]);
 
   echo form_open('eCabCardio/consult/save', $formAtribs, $hidden);
   echo form_fieldset('Datele consultului');
@@ -92,11 +89,11 @@
   echo '<p>&nbsp;</p>';
   echo '</div>';
   echo '<div class="form-group">';
-  echo form_button($btnLetter);
   echo form_button($btnSubmit);
+  echo form_button($btnLetter);
   echo '</div>';
   echo '<div class="form-group">';
-  echo form_error('consultFormError', '<div class="error">', '</div>');
+  echo '<div class="alert-info text-center">' . $consultPrice . ' lei</div>';
   echo '</div>';
   echo form_fieldset_close();
   echo form_close();

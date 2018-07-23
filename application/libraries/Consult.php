@@ -18,34 +18,49 @@ class Consult {
     $this->ci->load->model('ConsultModel');
   }
 
-  public function printAnalyzesList($check = array()) {
+  private function checkBoxAnalyzes($text, $name, $value, $check) {
+    $data = array(
+        'name' => $name,
+        'id' => 'consultfrm_' . $name,
+        'value' => $value,
+        'checked' => $check,
+        'class' => 'pull-left consultIconSize'
+    );
+    $ret = '<div class="form-group">';
+    $ret .= form_checkbox($data, $text);
+    $ret .= $text;
+    $ret .= '</div>';
+    return $ret;
+  }
+
+  public function printAnalyzesList($check = array()) { 
     $analyzesList = $this->ci->ConsultModel->getAnalysesList();
     $ret = '';
     if (count($analyzesList) > 0) {
       foreach ($analyzesList as $analyze) {
-        if (array_key_exists($analyze['id_analyze'], $check)) {
-          $checkStatus = ' checked="yes"';
+        if (in_array($analyze['id_analyze'], $check)) {
+          $checkStatus = TRUE;
         } else {
-          $checkStatus = '';
+          $checkStatus = FALSE;
         }
-        $ret .= '<p><input type="checkbox" name="analyzes[]" value="' . $analyze['id_analyze'] . '"' . $checkStatus . '>' . $analyze['name'] . '</p>';
+        $ret .= $this->checkBoxAnalyzes($analyze['name'], "analyzes[]", $analyze['id_analyze'], $checkStatus);
       }
     }
-    $ret .= '';
     return $ret;
   }
 
   public function printInvestigationsList($check = array()) {
     $investigationsList = $this->ci->ConsultModel->getInvestigationsList();
+
     $ret = '';
     if (count($investigationsList) > 0) {
       foreach ($investigationsList as $investigation) {
-        if (array_key_exists($investigation['id_investigations'], $check)) {
-          $checkStatus = ' checked';
+        if (in_array($investigation['id_investigations'], $check)) {
+          $checkStatus = TRUE;
         } else {
-          $checkStatus = '';
+          $checkStatus = FALSE;
         }
-        $ret .= '<p><input type="checkbox" name="investigations[]" value="' . $investigation['id_investigations'] . '"' . $checkStatus . '>' . $investigation['name'] . '</p>';
+        $ret .= $this->checkBoxAnalyzes($investigation['name'], "investigations[]", $investigation['id_investigations'], $checkStatus);
       }
     }
     $ret .= '';
@@ -55,11 +70,10 @@ class Consult {
   public function printDemographicalData($patient) {
     $demographicalData = $this->ci->ConsultModel->getDemographicalData($patient);
     $ret = '<h3>' . $demographicalData['first_name'] . ' ' . $demographicalData['last_name'] . '</h3>';
-    $ret .= '<p>' . $demographicalData['cnp'];
-    $ret .= '<br>' . $demographicalData['birth_date'] . ' ' . $demographicalData['marital_status'];
-    $ret .= '<br>' . $demographicalData['job'] . ' ' . $demographicalData['occupation'];
-    $ret .= '<br>' . $demographicalData['email'] . ' ' . $demographicalData['phone'];
-    $ret .= '<br>' . $demographicalData['address'] . ', ' . $demographicalData['locality_name'] . ', ' . $demographicalData['county_name'] . '</p>';
+    $ret .= '<p>' . $demographicalData['cnp'] . ' | ' . $demographicalData['birth_date'] . ' ' . $demographicalData['marital_status'];
+    $ret .= '<br>' . $demographicalData['job'] . ' | ' . $demographicalData['occupation'];
+    $ret .= '<br>' . $demographicalData['email'] . ' | ' . $demographicalData['phone'];
+    $ret .= '<br>' . $demographicalData['address'] . ' | ' . $demographicalData['locality_name'] . ' | ' . $demographicalData['county_name'] . '</p>';
     return $ret;
   }
 
@@ -71,18 +85,21 @@ class Consult {
       $i = 0;
       foreach ($consultsList as $consult) {
         $ret .= '<div class="card">';
-        $ret .= '<div class="card-header" role="tab" id="heading' . $i . '">
-            <a data-toggle="collapse" data-parent="#accordionConsultHistory" href="#collapse' . $i . '" aria-expanded="false" aria-controls="collapse' . $i . '">
-                <h5 class="mb-0">' . $consult['date'] . '</h5>
-            </a></div>';
-        $ret .= '<div id="collapse' . $i . '" class="collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionConsultHistory">
-  <div class="card-body">
-  <em>Motiv:</em> ' . $consult['consult_reasons'] . ' '
-                . '<br><em>Observații:</em> ' . $consult['remarks'] . ' '
-                . '<br><em>Recomandări:</em> ' . $consult['recommendations'] . ' '
-                . '<br><em>Tratament:</em> ' . $consult['treatment'] . ' '
-                . '<br><em>Medic:</em> ' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'] . '
-  </div></div>';
+        $ret .= '<div class="card-header" role="tab" id="heading' . $i . '">';
+        if ($consult['date'] == date('Y-m-d')) {
+          $ret .= '<a class="pull-right" href="/eCabCardio/consult/view/' . $consult['id_consult'] . '"><img class="img-circle img-responsive alignleft consultIconSize" src="' . base_url() . 'appearance/images/icons/icon_edit.png" alt="Modificați" title="Modificați" aria-label="Modificați" aria-hidden="true"></a>';
+        }
+        $ret .= '<a data-toggle="collapse" data-parent="#accordionConsultHistory" href="#collapse' . $i . '" aria-expanded="false" aria-controls="collapse' . $i . '">';
+        $ret .= '<span class="mb-0 title">' . $consult['date'] . '</span>';
+        $ret .= '</a></div>';
+        $ret .= '<div id="collapse' . $i . '" class="collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionConsultHistory">';
+        $ret .= '<div class="card-body">';
+        $ret .= '<em>Motiv:</em> ' . $consult['consult_reasons'];
+        $ret .= '<br><em>Observații:</em> ' . $consult['remarks'];
+        $ret .= '<br><em>Recomandări:</em> ' . $consult['recommendations'];
+        $ret .= '<br><em>Tratament:</em> ' . $consult['treatment'];
+        $ret .= '<br><em>Medic:</em> ' . $consult['employee_title'] . ' ' . $consult['employee_first_name'] . ' ' . $consult['employee_last_name'];
+        $ret .= '</div></div>';
         $ret .= '</div>';
         $i++;
       }

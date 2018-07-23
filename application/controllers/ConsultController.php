@@ -18,17 +18,19 @@ class ConsultController extends CI_Controller {
     }
   }
 
-  public function index($patient = 0) {
-    if ($patient > 0) {
+  public function index($patientSelected = 0) {
+    if ($patientSelected > 0) {
       $data = [
           'title' => 'Consult',
-          'selectedPatient' => $patient,
-          'demographicalData' => $this->consult->printDemographicalData($patient),
-          'consultsList' => $this->consult->printConsultsList($patient),
+          'selectedPatient' => $patientSelected,
+          'demographicalData' => $this->consult->printDemographicalData($patientSelected),
+          'consultsList' => $this->consult->printConsultsList($patientSelected),
           'analizesList' => $this->consult->printAnalyzesList(),
           'investigationsList' => $this->consult->printInvestigationsList(),
+          'consultDetails' => '',
+          'consultPrice' => ''
       ];
-      $this->template->load('Plain', 'consult', $data, TRUE);
+      $this->template->load('Plain', 'consult', $data);
     } else {
       $data = [
           'title' => 'Consult',
@@ -42,8 +44,11 @@ class ConsultController extends CI_Controller {
 
     if ($letterId > 0) {
       $data = [
-          'title' => 'Scrisoare medicală',
-          'body' => 'Scrisoarea medicală a...'
+          'clinic' => '',
+          'letter' => '',
+          'patient' => '',
+          'consult' => '',
+          'employee' => '',
       ];
       $this->template->load('txt', 'consult_letter', $data);
     } else {
@@ -81,16 +86,14 @@ class ConsultController extends CI_Controller {
   public function view($id = 0) {
     if ($id > 0) {
       $dbrez = $this->ConsultModel->getConsultById($id);
-      $dbConsult = $dbrez['consult'];
-      $dbInvestigations = $dbrez['investigations'];
-      $dbAnalyzes = $dbrez['analyzes'];
       $data = [
           'title' => 'Consult',
           'demographicalData' => $this->consult->printDemographicalData($dbrez['consult']['id_patient']),
           'consultsList' => $this->consult->printConsultsList($dbrez['consult']['id_patient']),
-          'consultDetails' => $this->utilFormEditConsult($dbConsult),
-          'analizesList' => $this->consult->printAnalyzesList($dbAnalyzes),
-          'investigationsList' => $this->consult->printInvestigationsList($dbInvestigations),
+          'consultDetails' => $this->utilFormEditConsult($dbrez['consult']),
+          'consultPrice' => $dbrez['consultPrice'],
+          'analizesList' => $this->consult->printAnalyzesList($dbrez['analyzes']),
+          'investigationsList' => $this->consult->printInvestigationsList($dbrez['investigations']),
           'selectedPatient' => $dbrez['consult']['id_patient']
       ];
       $this->template->load('Plain', 'consult', $data);

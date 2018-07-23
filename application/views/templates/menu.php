@@ -1,4 +1,4 @@
-<div class="container-fluid"><!-- navigation-transparent -->
+<!--<div class="container-fluid"> navigation-transparent -->
   <div class="header"><!-- navigation -->
     <div class="container">
       <div class="row">
@@ -9,7 +9,7 @@
               <li class="active"><a href="/eCabCardio/patient" title="Pacient" class="animsition-link">Pacient</a>
                 <ul>
                   <li>
-                    <a href="patient/add" title="Pacient nou" class="animsition-link">Pacient nou</a>
+                    <a href="/eCabCardio/patient/add" title="Pacient nou" class="animsition-link">Pacient nou</a>
                   </li>
                 </ul>
               </li>
@@ -41,5 +41,5 @@
       </div>
     </div>
   </div>
-</div>
+<!--</div>-->
 <!-- /.navigation -->
