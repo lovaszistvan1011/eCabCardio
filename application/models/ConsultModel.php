@@ -27,10 +27,28 @@ class ConsultModel extends CI_Model {
     return $query->row_array();
   }
 
+  public function getAnalyzesByConsultId($id_consult) {
+    $sql = "SELECT `analyzes`.`name` FROM `consult_analyzes` INNER JOIN `analyzes` ON `analyzes`.`id_analyze`=`consult_analyzes`.`id_analyzes` WHERE `id_consult` = '$id_consult';";
+    $query3 = $this->db->query($sql);
+    return $query3->result_array();
+  }
+
   public function getAnalysesList() {
     $sql = "SELECT * FROM `analyzes`;";
     $query = $this->db->query($sql);
     return $query->result_array();
+  }
+  
+  public function getClinic() {
+    $sql = "SELECT * FROM `clinic`;";
+    $query3 = $this->db->query($sql);
+    return $query3->row_array();
+  }
+
+  public function getMedicalLetter($id_patient) {
+    $sql = "SELECT * FROM `v_medical_letter` WHERE `id_consult` = '$id_patient';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
   }
 
   public function getInvestigationsList() {

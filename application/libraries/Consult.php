@@ -33,7 +33,7 @@ class Consult {
     return $ret;
   }
 
-  public function printAnalyzesList($check = array()) { 
+  public function printAnalyzesList($check = array()) {
     $analyzesList = $this->ci->ConsultModel->getAnalysesList();
     $ret = '';
     if (count($analyzesList) > 0) {
@@ -107,6 +107,15 @@ class Consult {
       $ret .= '</div> <!-- Accordion wrapper -->';
     }
     return $ret;
+  }
+
+  public function medicalLetterProcess($letter) {
+    $date = new DateTime($letter['patient_birth_date']);
+    $now = new DateTime();
+    $interval = $now->diff($date);
+    $letter['patient_age'] = $interval->y;
+    $letter['patient_sex'] = (substr($letter['patient_cnp'], 0, 1)%2 == 0) ? 'Doamna': 'Domnul';
+    return $letter;
   }
 
 }

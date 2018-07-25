@@ -10,6 +10,7 @@ class ConsultController extends CI_Controller {
     $this->load->model('ConsultModel');
     $this->load->library(['session', 'template', 'consult']);
     $this->setDemoEmployeeAndPatient();
+    setlocale(LC_ALL, "ro_RO.UTF-8");
   }
 
   private function setDemoEmployeeAndPatient() {
@@ -41,14 +42,13 @@ class ConsultController extends CI_Controller {
   }
 
   public function letter($letterId = 0) {
-
+    $medical_letter = $this->ConsultModel->getMedicalLetter($letterId);
     if ($letterId > 0) {
       $data = [
-          'clinic' => '',
-          'letter' => '',
-          'patient' => '',
-          'consult' => '',
-          'employee' => '',
+          'clinic' => $this->ConsultModel->getClinic(),
+          'letter' => $this->consult->medicalLetterProcess($medical_letter),
+          'analizes' => $this->ConsultModel->getAnalyzesByConsultId($letterId),
+          'today' => strftime("%#d.%B.%Y", strtotime(date("Y-m-d")))
       ];
       $this->template->load('txt', 'consult_letter', $data);
     } else {
