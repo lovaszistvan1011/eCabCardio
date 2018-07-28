@@ -38,15 +38,29 @@ class ConsultModel extends CI_Model {
     $query = $this->db->query($sql);
     return $query->result_array();
   }
-  
+
   public function getClinic() {
     $sql = "SELECT * FROM `clinic`;";
     $query3 = $this->db->query($sql);
     return $query3->row_array();
   }
 
+  // Used to autogenerate editable text content from consult, before saveing the medicall letter
   public function getMedicalLetter($id_patient) {
     $sql = "SELECT * FROM `v_medical_letter` WHERE `id_consult` = '$id_patient';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
+  }
+  
+  public function getEmployeeById($id_employee) {
+    $sql = "SELECT * FROM `employee` WHERE `id_employee` = '$id_employee';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
+  }
+  
+  // Used to generate pdf details.
+  public function getLetterByIdConsultEmployee($id_consult, $id_employee) {
+    $sql = "SELECT * FROM `medical_letter` WHERE `id_consult` = '$id_consult' AND `id_employee` = '$id_employee';";
     $query = $this->db->query($sql);
     return $query->row_array();
   }
@@ -92,6 +106,11 @@ class ConsultModel extends CI_Model {
       $this->insertInvestigations('consult_analyzes', $lastInsertId, $analyzes);
     }
     return $lastInsertId;
+  }
+
+  public function saveLetter($data) {
+    $sql = "INSERT INTO `medical_letter` (`id_consult`, `id_employee`, `letter`) VALUES ('" . $data['id_consult'] . "', '" . $data['id_employee'] . "', '" . $data['content'] . "');";
+    $this->db->query($sql);
   }
 
   private function insertConsult($consult) {

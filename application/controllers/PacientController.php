@@ -8,11 +8,22 @@ class PacientController extends CI_Controller {
         $this->load->helper(array('form', 'url'));
 
         $this->load->model('PacientModel');
-        $this->load->library('pagination');
+        $this->load->library(['pagination', 'template']);
     }
 
     function index() {
-        $this->load->view('search');
+        $data=[
+            'title'=>''
+        ];
+      $this->template->load('Plain', 'search',$data);
+    }
+    
+    public function design() {
+        $data=[
+            'title'=>''
+        ];
+//      $this->load->view('search');
+      $this->template->load('Plain', 'search',$data);
     }
 
     public function search_keyword() {
