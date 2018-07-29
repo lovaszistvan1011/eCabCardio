@@ -26,5 +26,19 @@ $route['consult/view'] = 'ConsultController/view';
 $route['finance'] = 'FinanceController';
 
 $route['preferences'] = 'PreferencesController';
+
+//Admin routes
 $route['admin'] = 'AdminController';
+$route['admin/clinic/save'] = 'AdminController/clinicSave';
+$route['admin/employee'] = 'AdminController/employee';
+$route['admin/employee/(:num)'] = 'AdminController/employee/$1';
+$route['admin/employee/save'] = 'AdminController/employeeSave';
+$route['admin/investigations'] = 'AdminController/investigations';
+$route['admin/investigations/edit'] = 'AdminController/investigationsEdit';
+$route['admin/investigations/edit/(:num)'] = 'AdminController/investigationsEdit/$1';
+$route['admin/investigations/save'] = 'AdminController/investigationsSave';
+$route['admin/analyzes'] = 'AdminController/analyzes';
+$route['admin/analyzes/edit'] = 'AdminController/analyzesEdit';
+$route['admin/analyzes/edit/(:num)'] = 'AdminController/analyzesEdit/$1';
+$route['admin/analyzes/save'] = 'AdminController/analyzesSave';
 

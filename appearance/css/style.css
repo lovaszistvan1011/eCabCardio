@@ -720,3 +720,7 @@ hr{border-bottom: #f0f6f6; margin-bottom: 30px; margin-top: 30px;}
 .eCabCardioIndent {
   text-indent: 45px;
 }
+.eCabCardioScroll {
+  height: 11rem; 
+  overflow-y: scroll;
+}
