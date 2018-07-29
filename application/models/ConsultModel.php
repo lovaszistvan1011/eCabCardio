@@ -40,13 +40,13 @@ class ConsultModel extends CI_Model {
     $query = $this->db->query($sql);
     return $query->result_array();
   }
-  
+
   public function getAnalyzesById($id_analyzes) {
     $sql = "SELECT * FROM `analyzes` WHERE `id_analyze`='$id_analyzes';";
     $query = $this->db->query($sql);
     return $query->row_array();
   }
-  
+
   public function setAnalizes() {
     if ($this->input->post('id_analyze') > 0) {
       $sql = "UPDATE `analyzes` SET `name` = '" . $this->input->post('name') . "' WHERE `id_analyze`='" . $this->input->post('id_analyze') . "';";
@@ -55,7 +55,11 @@ class ConsultModel extends CI_Model {
     }
     $this->db->query($sql);
   }
-  
+
+  public function deleteAnalizes() {
+    $sql = "DELETE FROM `analyzes` WHERE `id_analyze`='" . $this->input->post('id_analyze') . "';";
+    $this->db->query($sql);
+  }
 
   // Used to autogenerate editable text content from consult, before saveing the medicall letter
   public function getMedicalLetter($id_patient) {
@@ -95,6 +99,11 @@ class ConsultModel extends CI_Model {
     } else {
       $sql = "INSERT INTO `investigations` (`name`, `price`) VALUES ('" . $this->input->post('name') . "', '" . $this->input->post('price') . "');";
     }
+    $this->db->query($sql);
+  }
+
+  public function deleteInvestigations() {
+    $sql = "DELETE FROM `investigations` WHERE `id_investigations`='" . $this->input->post('id_investigations') . "';";
     $this->db->query($sql);
   }
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>appearance/css/animsition.min.css" media="screen"/>
 
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>appearance/css/font-awesome.min.css" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>appearance/js/summernote/summernote-bs4.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>appearance/js/menumaker/menumaker.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>appearance/css/style.css" media="screen"/>
 
     <!--jQuery 3.3.1-->
@@ -15,12 +15,15 @@
     <!--Bootstrap-->
     <script src="<?php echo base_url(); ?>appearance/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>appearance/js/popper.min.js"></script>
+    <script src="<?php echo base_url(); ?>appearance/ajax/jquery.confirm.cfg.js"></script>
+    <script src="<?php echo base_url(); ?>appearance/js/jquery.confirm/jquery.confirm.min.js"></script>
     <!--MenuMaker-->
-    <script src="<?php echo base_url(); ?>appearance/js/menumaker.min.js"></script>
+    <script src="<?php echo base_url(); ?>appearance/js/menumaker/menumaker.js"></script>
     <script type="text/javascript">
       $("#navigation").menumaker({
         title: "Meniu",
-        format: "multitoggle"
+        breakpoint: 768,
+        format: "multitoggle"       // It takes three values: dropdown for a simple toggle menu, select for select list menu, multitoggle for a menu where each submenu can be toggled separately
       });
     </script>
 
@@ -32,12 +35,6 @@
     <script src="<?php echo base_url(); ?>appearance/js/sticky-header.js"></script>
 
     <script src="<?php echo base_url(); ?>appearance/js/back-to-top.js"></script>
-    <script src="<?php echo base_url(); ?>appearance/js/summernote/summernote-bs4.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $('#summernote').summernote();
-      });
-    </script>
 
     <script src="<?php echo base_url(); ?>appearance/ajax/consult.js"></script>
 

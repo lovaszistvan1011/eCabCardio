@@ -17,7 +17,16 @@
       <div class="text-left eCabCardioScroll">
         <ul>
           <?php foreach ($employees as $emp): ?>
-            <li class="mx-2 my-4"><?php echo $emp['first_name'] . ' ' . $emp['last_name'] . ' <span class="pull-right"><a href="admin/employee/' . $emp['id_employee'] . '"><img class="img-circle img-responsive alignleft consultIconSize" src="' . base_url() . 'appearance/images/icons/icon_edit.png" alt="Actualizează angajat" title="Actualizează angajat" aria-label="Actualizează angajat" aria-hidden="true"></a></span>'; ?></li>
+            <li class="mx-2 my-4"><?php echo $emp['first_name'] . ' ' . $emp['last_name']; ?>
+              <div class="pull-right">
+                <a href="admin/employee/<?php echo $emp['id_employee']; ?>">
+                  <img class="img-circle img-responsive alignleft consultIconSize" src="<?php echo base_url(); ?>appearance/images/icons/icon_edit.png" alt="Actualizează angajat" title="Actualizează angajat" aria-label="Actualizează angajat" aria-hidden="true">
+                </a>
+                <a href="#" class="btnDelEmployees" data-employee="<?php echo $emp['id_employee']; ?>">
+                  <img class="img-circle img-responsive alignleft consultIconSize" src="<?php echo base_url(); ?>appearance/images/icons/icon_del.png" alt="Ștergere angajat" title="Ștergere angajat" aria-label="Ștergere angajat" aria-hidden="true">
+                </a>
+              </div>
+            </li>
           <?php endforeach; ?>
         </ul>
       </div>
