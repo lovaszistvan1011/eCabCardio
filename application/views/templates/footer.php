@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12 text-center">
-        eCabCardio app - an iternship project managed and mentored by <i class="fa fa-love"></i><a target="_new" href="https://qinsoft.ro">Qinsoft Solutions</a>
+        eCabCardio app - an internship project managed and mentored by <i class="fa fa-love"></i><a target="_new" href="https://qinsoft.ro">Qinsoft Solutions</a>
       </div>
     </div>
   </div>

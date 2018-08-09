@@ -8,15 +8,30 @@ class PacientController extends CI_Controller {
         $this->load->helper(array('form', 'url'));
 
         $this->load->model('PacientModel');
-        $this->load->library('pagination');
+        $this->load->library(['pagination', 'template']);
     }
+    
 
     function index() {
-        $this->load->view('search');
+       $data =[
+            'title'=>''
+        ];
+        $this->template->load('Plain', 'search', $data); 
+       //$this->load->view('search');
+    }
+    
+    function design(){
+        $data =[
+            'title'=>''
+        ];
+        $this->template->load('Plain', 'search', $data);
     }
 
     public function search_keyword() {
-        $this->load->view('search');
+        $data =[
+            'title'=>''
+        ];
+        $this->template->load('Plain','search', $data);
         $config = array();
         $config["base_url"] = base_url() . "PacientController/search_keyword";
         $config["total_rows"] = $this->PacientModel->record_count();
@@ -32,18 +47,25 @@ class PacientController extends CI_Controller {
     }
 
     public function details() {
+         $data =[
+            'title'=>''
+        ];
         $id_p = $this->uri->segment(3);
         $data['records'] = $this->PacientModel->getData($id_p);
         $data['rows1'] = $this->PacientModel->expose_c($id_p);
         $data['rows2'] = $this->PacientModel->expose_l($id_p);
-
-        $this->load->view('PacientView', $data);
+         $this->template->load('Plain','PacientView', $data);
+       // $this->load->view('PacientView', $data);
     }
 
     public function insert_data() {
+        $data =[
+            'title'=>'Pacient nou'
+        ];
         $data['rows1'] = $this->PacientModel->county_list();
         $data['rows2'] = $this->PacientModel->locality_list();
-        $this->load->view('NewPacientView', $data);
+        //$this->load->view('NewPacientView', $data);
+        $this->template->load('Plain', 'NewPacientView', $data);
     }
 
     public function savedata() {
@@ -71,6 +93,9 @@ class PacientController extends CI_Controller {
     }
 
     public function edit() {
+         $data =[
+            'title'=>''
+        ];
         $id_edit = $this->uri->segment(3);
         // var_dump($id_edit);
         $data['rows1'] = $this->PacientModel->county_list();
@@ -78,7 +103,8 @@ class PacientController extends CI_Controller {
         $data['data'] = $this->PacientModel->getData($id_edit);
         $data['row1'] = $this->PacientModel->expose_c($id_edit);
         $data['row2'] = $this->PacientModel->expose_l($id_edit);
-        $this->load->view('EditPacientView', $data);
+        $this->template->load('Plain','EditPacientView',$data);
+      //  $this->load->view('EditPacientView', $data);
     }
 
     public function editpatient() {

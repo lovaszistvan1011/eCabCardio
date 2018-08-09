@@ -17,6 +17,7 @@
               <li class="active"><a href="/eCabCardio/finance" title="Financiar" class="animsition-link">Financiar</a></li>
               <li class="active"><a href="/eCabCardio/preferences" title="Preferințe" class="animsition-link">Preferințe</a></li>
               <li class="active"><a href="/eCabCardio/admin" title="Administrare" class="animsition-link">Administrare</a></li>
+              <li class="active"><a href = "http://localhost/eCabCardio/login" class="animsition-link">Logout</a></li>
               <!--                <li><a href="service-list.html" title="Service" class="animsition-link">Service List</a>
                               <ul>
                                 <li><a href="service-list.html" title="Service List">Service List</a></li>

@@ -7,9 +7,7 @@
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.css">
     </head>
     <body>
-        <?php $this->load->view('templates/header')?>
-        <?php $this->load->view('templates/menu')?>
-        <?php $this->load->view('nav')?>
+       
     <center>
         <h2> Pacient</h2>
         <div>
