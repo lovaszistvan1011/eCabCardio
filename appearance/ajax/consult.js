@@ -58,5 +58,37 @@ $(document).ready(function () {
       alert("`id_patient` NU TREBUIE să vie egal cu 0");
     }
   });
+
+  $('#btnSaveLetter').on('click', function (e) {
+    e.preventDefault();
+    var letterIdConsult = $('input[name="id_consult"]').val();
+    var letterIdEmployee = $('input[name="id_employee"]').val();
+    var letterContent = $('div.qEditor').html();
+    alert(
+            "Trimite datele:\n" +
+            "\n\nconsult=" + letterIdConsult +
+            "\n\nangajat=" + letterIdEmployee +
+            "\n\nscrisoare: " + letterContent
+            );
+    $.ajax({
+      type: 'POST',
+      url: '/eCabCardio/consult/letter/save',
+      dataType: "JSON",
+      data: {
+        "id_consult": letterIdConsult,
+        "id_employee": letterIdEmployee,
+        "content": letterContent
+      }
+      ,
+      success: function (data) {
+        window.location.href = '/eCabCardio/consult/letter/view/' + letterIdConsult + '/' + letterIdEmployee;
+      },
+      error: function (data) {
+
+      }
+    }); // end of Ajax post
+    console.log(letterContent);
+
+  });
 });
   

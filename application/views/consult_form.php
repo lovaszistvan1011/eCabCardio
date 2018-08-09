@@ -34,7 +34,7 @@
       'value' => 'true',
       'type' => 'submit',
       'class' => 'btn btn-primary',
-      'content' => 'Salvează consultul'
+      'content' => 'Salvează'
   );
 
   function taConsult($name, $placeholder, $value = '') {

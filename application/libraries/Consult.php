@@ -33,7 +33,7 @@ class Consult {
     return $ret;
   }
 
-  public function printAnalyzesList($check = array()) { 
+  public function printAnalyzesList($check = array()) {
     $analyzesList = $this->ci->ConsultModel->getAnalysesList();
     $ret = '';
     if (count($analyzesList) > 0) {
@@ -107,6 +107,51 @@ class Consult {
       $ret .= '</div> <!-- Accordion wrapper -->';
     }
     return $ret;
+  }
+
+  public function medicalLetterProcess($letter) {
+    $date = new DateTime($letter['patient_birth_date']);
+    $now = new DateTime();
+    $interval = $now->diff($date);
+    $letter['patient_age'] = $interval->y;
+    $letter['patient_sex'] = (substr($letter['patient_cnp'], 0, 1) % 2 == 0) ? 'Doamna' : 'Domnul';
+    return $letter;
+  }
+
+  public function generateMedicalLetter($clinic, $employee, $letter) {
+    $css = '<style> p { text-indent: 50px; margin: 1px 1px; padding:0 0; } </style>';
+    $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+    $pdf->clinic = $clinic;
+    $pdf->employee = $employee;
+    $pdf->SetTitle('Scrisoare medicală');
+    $pdf->SetHeaderMargin(0);
+    $pdf->setFooterMargin(10);
+    $pdf->SetTopMargin(10);
+    $pdf->SetAutoPageBreak(TRUE, 10);
+    $pdf->SetCreator('eCabCardio - app');
+    $pdf->SetAuthor('eCabCardio');
+    $pdf->SetSubject('Consult cardiologie');
+    $pdf->SetKeywords('cardiologie, consult, scrisoare, medic, specialist, analize');
+    $pdf->SetFillColor(255, 210, 210);
+    $pdf->SetDisplayMode('real', 'default');
+
+    // set font
+    $pdf->AddPage();
+    $pdf->SetFont('dejavuserif', 'b', 22);
+    $pdf->MultiCell(190, 20, 'Scrisoare medicală', $border = 0, $align = 'C', $fill = '', $ln = true, $x = 10, $y = 40);
+    $pdf->SetFont('dejavusans', '', 15);
+    $pdf->Ln(0);
+    $pdf->setFontSpacing(0);
+    $pdf->MultiCell('', '', $css . $letter, $border = 0, $align = 'J', $fill = 0, $ln = 1, $x = 10, $y = 40, $reseth = true, $stretch = 0, $ishtml = true, $autopadding = false, $maxh = 40, $valign = 'M', $fitcell = false);
+    $pdf->Ln(1);
+    $this->letterSignatureCell($pdf, 25, "Data: \n" . strftime("%#d.%B.%Y", strtotime(date("Y-m-d"))));
+    $this->letterSignatureCell($pdf, 123, "Semnătura: \n" . $employee['first_name'] . ' ' . $employee['last_name']);
+    
+    $pdf->Output('My-File-Name.pdf', 'I');
+  }
+
+  private function letterSignatureCell($pdf, $x = 0, $txt = '', $with = 65, $height = 15) {
+    $pdf->MultiCell($with, $height, $txt, $border = 1, $align = 'C', $fil = 1, $ln = 0, $x, $y = '', $reseth = true, $stretch = 0, $ishtml = false, $autopadding = false, $maxh = 0, $valign = 'M', $fitcell = true);
   }
 
 }

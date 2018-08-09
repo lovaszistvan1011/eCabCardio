@@ -8,8 +8,9 @@ class ConsultController extends CI_Controller {
     parent::__construct();
     $this->load->helper(['url', 'form']);
     $this->load->model('ConsultModel');
-    $this->load->library(['session', 'template', 'consult']);
+    $this->load->library(['session', 'template', 'consult', 'pdf']);
     $this->setDemoEmployeeAndPatient();
+    setlocale(LC_ALL, "ro_RO.UTF-8");
   }
 
   private function setDemoEmployeeAndPatient() {
@@ -41,14 +42,14 @@ class ConsultController extends CI_Controller {
   }
 
   public function letter($letterId = 0) {
-
+    $medical_letter = $this->ConsultModel->getMedicalLetter($letterId);
     if ($letterId > 0) {
       $data = [
-          'clinic' => '',
-          'letter' => '',
-          'patient' => '',
-          'consult' => '',
-          'employee' => '',
+          'clinic' => $this->ConsultModel->getClinic(),
+          'consultLib' => $this->consult,
+          'letter' => $this->consult->medicalLetterProcess($medical_letter),
+          'analizes' => $this->ConsultModel->getAnalyzesByConsultId($letterId),
+          'today' => strftime("%#d.%B.%Y", strtotime(date("Y-m-d")))
       ];
       $this->template->load('txt', 'consult_letter', $data);
     } else {
@@ -58,6 +59,32 @@ class ConsultController extends CI_Controller {
       ];
       $this->template->load('txt', null, $data);
     }
+  }
+
+  public function letterSave() {
+    $letter['id_consult'] = $this->input->post('id_consult');
+    $letter['id_employee'] = $this->input->post('id_employee');
+    $letter['content'] = $this->input->post('content');
+    $this->ConsultModel->saveLetter($letter);
+    $data = [
+        'title' => '',
+        'body' => '',
+    ];
+    $this->template->load('txt', null, $data);
+  }
+
+  public function letterView($id_consult = null, $id_employee = null) {
+    $clinic = $this->ConsultModel->getClinic();
+    $employeeFromDb = $this->ConsultModel->getEmployeeById($id_employee);
+    $requestLetter = $this->ConsultModel->getLetterByIdConsultEmployee($id_consult, $id_employee);
+    $letter = $requestLetter['letter'];
+//    var_dump($letter);
+    $data = [
+        'title' => '',
+        'body' => '',
+    ];
+    $this->template->load('txt', null, $data);
+    $this->consult->generateMedicalLetter($clinic, $employeeFromDb, $letter);
   }
 
   public function save() {

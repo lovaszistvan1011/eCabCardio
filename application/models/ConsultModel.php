@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
   exit('No direct script access allowed');
 
 /**
- * Description of ConsultModel
+ * ConsultModel offers methods that are used by the consult module and medical letter. Unfortunately, its prorogatyves extends to a lot of other tables such as employy, clinic, etc.
  *
  * @author stefa
  */
@@ -17,6 +17,7 @@ class ConsultModel extends CI_Model {
     $this->load->library('session');
   }
 
+  //  Even it should be in patient, this method is ok here for retriving demograpical data about consulted padient
   public function getDemographicalData($patient) {
     $sql = "SELECT `patient`.*, `county`.`name`AS `county_name`, `locality`.`name` AS `locality_name` "
             . "FROM `patient` "
@@ -27,16 +28,83 @@ class ConsultModel extends CI_Model {
     return $query->row_array();
   }
 
+  public function getAnalyzesByConsultId($id_consult) {
+    $sql = "SELECT `analyzes`.`name` FROM `consult_analyzes` INNER JOIN `analyzes` ON `analyzes`.`id_analyze`=`consult_analyzes`.`id_analyzes` WHERE `id_consult` = '$id_consult';";
+    $query3 = $this->db->query($sql);
+    return $query3->result_array();
+  }
+
+//  Retrives the list of Recomended analyzes
   public function getAnalysesList() {
-    $sql = "SELECT * FROM `analyzes`;";
+    $sql = "SELECT * FROM `analyzes` ORDER BY `name`;";
     $query = $this->db->query($sql);
     return $query->result_array();
   }
 
+  public function getAnalyzesById($id_analyzes) {
+    $sql = "SELECT * FROM `analyzes` WHERE `id_analyze`='$id_analyzes';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
+  }
+
+  public function setAnalizes() {
+    if ($this->input->post('id_analyze') > 0) {
+      $sql = "UPDATE `analyzes` SET `name` = '" . $this->input->post('name') . "' WHERE `id_analyze`='" . $this->input->post('id_analyze') . "';";
+    } else {
+      $sql = "INSERT INTO `analyzes` (`name`) VALUES ('" . $this->input->post('name') . "');";
+    }
+    $this->db->query($sql);
+  }
+
+  public function deleteAnalizes() {
+    $sql = "DELETE FROM `analyzes` WHERE `id_analyze`='" . $this->input->post('id_analyze') . "';";
+    $this->db->query($sql);
+  }
+
+  // Used to autogenerate editable text content from consult, before saveing the medicall letter
+  public function getMedicalLetter($id_patient) {
+    $sql = "SELECT * FROM `v_medical_letter` WHERE `id_consult` = '$id_patient';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
+  }
+
+  public function getEmployeeById($id_employee) {
+    $sql = "SELECT * FROM `employee` WHERE `id_employee` = '$id_employee';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
+  }
+
+  // Used to generate pdf details.
+  public function getLetterByIdConsultEmployee($id_consult, $id_employee) {
+    $sql = "SELECT * FROM `medical_letter` WHERE `id_consult` = '$id_consult' AND `id_employee` = '$id_employee';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
+  }
+
   public function getInvestigationsList() {
-    $sql = "SELECT * FROM `investigations`;";
+    $sql = "SELECT * FROM `investigations` ORDER BY `name`;";
     $query = $this->db->query($sql);
     return $query->result_array();
+  }
+
+  public function getInvestigationsById($id_investigation) {
+    $sql = "SELECT * FROM `investigations` WHERE `id_investigations`='$id_investigation';";
+    $query = $this->db->query($sql);
+    return $query->row_array();
+  }
+
+  public function setInvestigations() {
+    if ($this->input->post('id_investigations') > 0) {
+      $sql = "UPDATE `investigations` SET `name` = '" . $this->input->post('name') . "', `price` = '" . $this->input->post('price') . "' WHERE `id_investigations`='" . $this->input->post('id_investigations') . "';";
+    } else {
+      $sql = "INSERT INTO `investigations` (`name`, `price`) VALUES ('" . $this->input->post('name') . "', '" . $this->input->post('price') . "');";
+    }
+    $this->db->query($sql);
+  }
+
+  public function deleteInvestigations() {
+    $sql = "DELETE FROM `investigations` WHERE `id_investigations`='" . $this->input->post('id_investigations') . "';";
+    $this->db->query($sql);
   }
 
   public function getConsultById($id) {
@@ -76,6 +144,12 @@ class ConsultModel extends CI_Model {
     return $lastInsertId;
   }
 
+  public function saveLetter($data) {
+    $sql = "INSERT INTO `medical_letter` (`id_consult`, `id_employee`, `letter`) VALUES ('" . $data['id_consult'] . "', '" . $data['id_employee'] . "', '" . $data['content'] . "');";
+    $this->db->query($sql);
+  }
+
+  //  Consult saving sql insert sequence, bindinc post data and table columns
   private function insertConsult($consult) {
     $sql = "INSERT INTO `consult` (`physiological_antecedents`, `pathological_antecedents`, `hetero_collateral_antecedents`, `medium_conditions`, `present_status`, `vascular_apparatus`, `local_complementary_exams`, `personal_antecedents`, `consult_reasons`, `remarks`, `diagnostic`, `recommendations`, `treatment`, `id_patient`, `id_employee`) "
             . "VALUES ('" . $consult['physiological_antecedents'] . "', '" . $consult['pathological_antecedents'] . "', '" . $consult['hetero_collateral_antecedents'] . "', '" . $consult['medium_conditions'] . "', '" . $consult['present_status'] . "', '" . $consult['vascular_apparatus'] . "', '" . $consult['local_complementary_exams'] . "', '" . $consult['personal_antecedents'] . "', '" . $consult['consult_reasons'] . "', '" . $consult['remarks'] . "', '" . $consult['diagnostic'] . "', '" . $consult['recommendations'] . "', '" . $consult['treatment'] . "', '" . $consult['id_patient'] . "', '" . $this->session->id_employee . "');";
@@ -83,6 +157,7 @@ class ConsultModel extends CI_Model {
     return $this->db->insert_id();
   }
 
+//  Consult saving sql update sequence, bindinc post data and table columns
   private function updateConsult($consult) {
     $sql = "UPDATE `consult` SET "
             . "`physiological_antecedents` = '" . $consult['physiological_antecedents'] . "', "
